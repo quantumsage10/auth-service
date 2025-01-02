@@ -44,3 +44,12 @@
 - centralized location storage
 - env - secret credentials
 - dotenv package npm
+
+
+### expressjs to make server
+
+- serve files on web
+- makes easy web serving by providing middlewares
+- install from docs
+
+> nodemon internally use ts-node to run file & track changes

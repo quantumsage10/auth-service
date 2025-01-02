@@ -1,7 +1,14 @@
+import app from './app'
 import { Config } from './config'
 
-console.log(process.env) // system info
-// console.log(process.env.PORT)
+const startServer = () => {
+    const PORT = Config.PORT
+    try {
+        app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
+    } catch (error) {
+        console.log(error)
+        process.exit(1)
+    }
+}
 
-console.log(Config.PORT)
-console.log(Config.NODE_ENV)
+startServer()
