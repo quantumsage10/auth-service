@@ -30,3 +30,5 @@
 > (husky pre-commit) 
 - install from docs
 - npx husky init
+
+1. pre-commit file - npm test might create problem in git pushing code
