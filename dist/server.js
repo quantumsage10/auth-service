@@ -1,5 +1,5 @@
 "use strict";
 function welcome(name) {
-    console.log('WElcome');
+    console.log("WElcome, " + name);
 }
-welcome('runi');
+welcome("runi");
