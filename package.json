@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "node src/server.js",
+    "format:fix": "prettier . --write",
+    "format:check": "prettier . --check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Runi Panda ",
@@ -10,6 +13,7 @@
   "description": "This is a full stack enginnering course",
   "devDependencies": {
     "@types/node": "^22.10.3",
+    "prettier": "3.4.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
