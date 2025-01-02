@@ -21,11 +21,15 @@
     "@typescript-eslint/parser": "^8.19.0",
     "eslint": "^9.17.0",
     "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
     "prettier": "3.4.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.19.0"
   },
   "dependencies": {
     "ts-node": "^10.9.2"
+  },
+   "lint-staged": {
+    "*.ts": ["npm run format:fix", "npm run lint:fix"]
   }
 }

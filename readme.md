@@ -23,12 +23,16 @@
 
 ### git hooks 
 
-- before pushing to git doing something with code like linting or formating
+- before commiting to git doing something with code like linting or formating
 - only pushing high quality code with fully linted or formated code
 - git formatter or linter for more safety
 
-> (husky pre-commit) 
+> husky pre-commit
 - install from docs
 - npx husky init
 
 1. pre-commit file - npm test might create problem in git pushing code
+
+> lint-staged npm
+- install from docs
+- manually add command in the end of package.json
