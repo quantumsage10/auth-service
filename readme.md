@@ -38,3 +38,10 @@
 - install from docs
 - manually add command in the end of package.json
 - lint-staged fix the error automatically utilizing eslint.config.mjs file
+
+
+### app config
+
+- centralized location storage
+- env - secret credentials
+- dotenv package npm
