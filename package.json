@@ -7,5 +7,12 @@
   },
   "author": "Runi Panda ",
   "license": "ISC",
-  "description": "This is a full stack enginnering course"
+  "description": "This is a full stack enginnering course",
+  "devDependencies": {
+    "@types/node": "^22.10.3",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
 }
