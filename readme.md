@@ -45,7 +45,6 @@
 - env - secret credentials
 - dotenv package npm
 
-
 ### expressjs to make server
 
 - serve files on web
@@ -53,3 +52,11 @@
 - install from docs
 
 > nodemon internally use ts-node to run file & track changes
+
+### winston logger
+
+- install from docs
+- additional info
+- more control to console.log statements
+- toggle log through env variable - automate
+- transports means sending/dispalying logs
