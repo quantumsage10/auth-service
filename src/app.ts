@@ -4,8 +4,7 @@ import { HttpError } from 'http-errors'
 const app = express()
 
 app.get('/', (req, res) => {
-    res.status(201).send('Welcome to auth service')
-    // status code return 200 on this route
+    res.status(200).send('Welcome to auth service')
 })
 
 // global error handler middleware
