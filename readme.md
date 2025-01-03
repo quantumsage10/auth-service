@@ -76,3 +76,6 @@
 - it = tests
 
 > Supertest - testing HTTP API endpoints
+
+- install from docs
+- run own server

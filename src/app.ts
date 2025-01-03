@@ -5,6 +5,7 @@ const app = express()
 
 app.get('/', (req, res) => {
     res.send('Welcome to auth service')
+    // status code return 200 on this route
 })
 
 // global error handler middleware
