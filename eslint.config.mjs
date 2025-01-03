@@ -14,7 +14,7 @@ export default tseslint.config(
             'jest.config.js',
             'app.spec.ts',
             '**/*.spec.ts',
-             'tests'
+            'tests',
         ],
     },
     {

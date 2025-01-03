@@ -80,7 +80,6 @@
 - install from docs
 - run own server
 
-
 ### docker
 
 - to have same config, version or binaries in both development & deployment
