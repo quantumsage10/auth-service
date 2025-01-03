@@ -68,11 +68,11 @@
 ### automated tests
 
 > Jest - using babel,typescript, nodejs, react
+
 - install from docs for typescript & configuration
 - file convention app.spec.ts or app.test.ts
 - sometimes just restart eslint server from command pallete
 - describe = test suites
 - it = tests
-
 
 > Supertest - testing HTTP API endpoints
