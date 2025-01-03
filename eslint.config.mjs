@@ -12,7 +12,7 @@ export default tseslint.config(
             'node_modules',
             'eslint.config.mjs',
             'jest.config.js',
-            'app.spec.ts'
+            'app.spec.ts',
         ],
     },
     {
