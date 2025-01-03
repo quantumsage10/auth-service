@@ -94,3 +94,5 @@ docker ps
 docker stop <conatinerId>
 docker run <Image-name>
 ```
+
+- to run docker daemon desktop, host system must have atleast 8 gb of ram

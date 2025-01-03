@@ -13,6 +13,8 @@ export default tseslint.config(
             'eslint.config.mjs',
             'jest.config.js',
             'app.spec.ts',
+            '**/*.spec.ts',
+             'tests'
         ],
     },
     {
