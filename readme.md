@@ -60,3 +60,8 @@
 - more control to console.log statements
 - toggle log through env variable - automate
 - transports means sending/dispalying logs
+
+
+### error middlewares for http errors
+
+- npm i http-errors -D @types/http-errors
