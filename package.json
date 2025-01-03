@@ -19,7 +19,7 @@
         "@types/express": "^5.0.0",
         "@types/http-errors": "^2.0.4",
         "@types/jest": "^29.5.14",
-        "@types/node": "^22.10.3",
+        "@types/node": "^22.10.5",
         "@types/supertest": "^6.0.2",
         "@types/winston": "^2.4.4",
         "@typescript-eslint/eslint-plugin": "^8.19.0",
@@ -40,7 +40,10 @@
     "dependencies": {
         "dotenv": "^16.4.7",
         "express": "^4.21.2",
-        "http-errors": "^2.0.0"
+        "http-errors": "^2.0.0",
+        "pg": "^8.13.1",
+        "reflect-metadata": "^0.2.2",
+        "typeorm": "^0.3.20"
     },
     "lint-staged": {
         "*.ts": [

@@ -124,3 +124,11 @@ docker ps
 # login in postgres via terminal
 docker exec -it <postgrescontainerName> psql -U <username>
 ```
+
+### database connnection with typeorm
+
+- one query for all different databases interaction(mongodb,postgres)
+- to check whether data exists or not after user registration
+- install from typeorm docs
+- enable typescript decorators
+- for current project:- npx typeorm init --database postgres 
