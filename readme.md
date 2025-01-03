@@ -95,3 +95,32 @@ docker run <Image-name>
 ```
 
 - to run docker daemon desktop, host system must have atleast 8 gb of ram
+
+### posgresql docker image
+
+- install from postgres docker image docs
+- via terminal command or via docker-compose
+
+```bash
+# build postgres docker image
+docker pull postgres
+# create a persistent volume
+docker volume create mernpgdata
+docker volume ls
+# via terminal
+docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+docker ps
+```
+
+### postgres in Azure Data Studio
+
+- first create docker postgres image via terminal or via docker-compose
+- POSTGRES_USER=root  
+- POSTGRES_PASSWORD=root
+- port=5432
+- server=localhost
+
+```bash
+# login in postgres via terminal
+docker exec -it <postgrescontainerName> psql -U <username>
+```
