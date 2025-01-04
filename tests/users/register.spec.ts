@@ -1,12 +1,9 @@
 import request from 'supertest'
+import app from '../../src/app'
+import { User } from '../../src/entity/User'
 import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
-import truncateTables from '../utils'
-import { User } from '../../src/entity/User'
-import { createServer } from 'http'
-
-// Create an HTTP server instance for testing
-const testServer = createServer()
+import { truncateTables } from '../utils'
 
 describe('POST /auth/register', () => {
     let connection: DataSource
@@ -26,18 +23,15 @@ describe('POST /auth/register', () => {
 
     describe('Given all fields', () => {
         it('should return the 201 status code', async () => {
-            // AAA
-
             // Arrange
             const userData = {
-                firstName: 'runi',
-                lastName: 'panda',
-                email: 'runipanda@gmail.com',
+                firstName: 'Rakesh',
+                lastName: 'K',
+                email: 'rakesh@mern.space',
                 password: 'secret',
             }
-
             // Act
-            const response = await request(testServer)
+            const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
@@ -48,13 +42,13 @@ describe('POST /auth/register', () => {
         it('should return valid json response', async () => {
             // Arrange
             const userData = {
-                firstName: 'runi',
-                lastName: 'panda',
-                email: 'runi@mern.space',
+                firstName: 'Rakesh',
+                lastName: 'K',
+                email: 'rakesh@mern.space',
                 password: 'secret',
             }
             // Act
-            const response = await request(testServer)
+            const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
@@ -67,18 +61,21 @@ describe('POST /auth/register', () => {
         it('should persist the user in the database', async () => {
             // Arrange
             const userData = {
-                firstName: 'runi',
-                lastName: 'panda',
-                email: 'runi@mern.space',
+                firstName: 'Rakesh',
+                lastName: 'K',
+                email: 'rakesh@mern.space',
                 password: 'secret',
             }
             // Act
-            await request(testServer).post('/auth/register').send(userData)
+            await request(app).post('/auth/register').send(userData)
 
             // Assert
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(1)
+            expect(users[0].firstName).toBe(userData.firstName)
+            expect(users[0].lastName).toBe(userData.lastName)
+            expect(users[0].email).toBe(userData.email)
         })
     })
     describe('Fields are missing', () => {})

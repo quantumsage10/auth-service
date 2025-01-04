@@ -133,3 +133,15 @@ docker exec -it <postgrescontainerName> psql -U <username>
 - enable typescript decorators
 - for current project:- npx typeorm init --database postgres
     > after typeorm init - it may override few files
+
+
+### ❗️✨💥 typescript version conflict with jest & supertest
+
+- two versions of typescript were installed
+- solve by 
+```bash
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
+npm install typescript@">=4.8.4 <5.8.0" --save-dev
+```
