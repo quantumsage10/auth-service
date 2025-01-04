@@ -132,3 +132,4 @@ docker exec -it <postgrescontainerName> psql -U <username>
 - install from typeorm docs
 - enable typescript decorators
 - for current project:- npx typeorm init --database postgres 
+> after typeorm init - it may override few files
