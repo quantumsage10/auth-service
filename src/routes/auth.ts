@@ -3,6 +3,7 @@ import { AuthController } from '../controller/AuthController'
 import { UserService } from '../services/UserServices'
 import { AppDataSource } from '../config/data-source'
 import { User } from '../entity/User'
+import logger from '../config/logger'
 
 const authRouter = express.Router()
 
@@ -13,7 +14,7 @@ const userRepository = AppDataSource.getRepository(User)
 const userService = new UserService(userRepository)
 
 // dependency injection
-const authController = new AuthController(userService)
+const authController = new AuthController(userService, logger)
 
 authRouter.post('/register', (req, res, next) =>
     authController.register(req, res, next),
