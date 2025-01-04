@@ -115,7 +115,7 @@ docker ps
 ### postgres in Azure Data Studio
 
 - first create docker postgres image via terminal or via docker-compose
-- POSTGRES_USER=root  
+- POSTGRES_USER=root
 - POSTGRES_PASSWORD=root
 - port=5432
 - server=localhost
@@ -131,5 +131,5 @@ docker exec -it <postgrescontainerName> psql -U <username>
 - to check whether data exists or not after user registration
 - install from typeorm docs
 - enable typescript decorators
-- for current project:- npx typeorm init --database postgres 
-> after typeorm init - it may override few files
+- for current project:- npx typeorm init --database postgres
+    > after typeorm init - it may override few files

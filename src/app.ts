@@ -5,12 +5,12 @@ import { HttpError } from 'http-errors'
 import authRouter from './routes/auth'
 
 const app = express()
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Welcome to Auth service')
 })
 
-// mount the authRouter to this middleware
 app.use('/auth', authRouter)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
