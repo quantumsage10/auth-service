@@ -15,6 +15,8 @@ const userService = new UserService(userRepository)
 // dependency injection
 const authController = new AuthController(userService)
 
-authRouter.post('/register', (req, res) => authController.register(req, res))
+authRouter.post('/register', (req, res, next) =>
+    authController.register(req, res, next),
+)
 
 export default authRouter
