@@ -25,9 +25,9 @@ describe('POST /auth/register', () => {
         it('should return the 201 status code', async () => {
             // Arrange
             const userData = {
-                firstName: 'Rakesh',
-                lastName: 'K',
-                email: 'rakesh@mern.space',
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'runi@mern.space',
                 password: 'secret',
             }
             // Act
@@ -42,9 +42,9 @@ describe('POST /auth/register', () => {
         it('should return valid json response', async () => {
             // Arrange
             const userData = {
-                firstName: 'Rakesh',
-                lastName: 'K',
-                email: 'rakesh@mern.space',
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'runi@mern.space',
                 password: 'secret',
             }
             // Act
@@ -61,9 +61,9 @@ describe('POST /auth/register', () => {
         it('should persist the user in the database', async () => {
             // Arrange
             const userData = {
-                firstName: 'Rakesh',
-                lastName: 'K',
-                email: 'rakesh@mern.space',
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'runi@mern.space',
                 password: 'secret',
             }
             // Act
