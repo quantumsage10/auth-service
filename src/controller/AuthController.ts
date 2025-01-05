@@ -7,6 +7,7 @@ import { JwtPayload, sign } from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
 import createHttpError from 'http-errors'
+import { Config } from '../config'
 
 export class AuthController {
     constructor(
@@ -70,7 +71,11 @@ export class AuthController {
                 issuer: 'auth-service',
             })
 
-            const refreshToken = 'qrheigk'
+            const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
+                algorithm: 'HS256',
+                expiresIn: '1yr',
+                issuer: 'auth-service',
+            })
 
             res.cookie('accessToken', accessToken, {
                 domain: 'localhost',
@@ -82,7 +87,7 @@ export class AuthController {
             res.cookie('refreshToken', refreshToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365, // 1hour
+                maxAge: 1000 * 60 * 60 * 24 * 365, // 1year
                 httpOnly: true,
             })
 

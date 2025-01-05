@@ -190,6 +190,7 @@ describe('POST /auth/register', () => {
 
             expect(isJwt(accessToken)).toBeTruthy()
             console.log('Access Token:', accessToken)
+            expect(isJwt(refreshToken)).toBeTruthy()
         })
     })
 
