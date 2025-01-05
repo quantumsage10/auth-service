@@ -232,6 +232,28 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
         })
+
+        it('shoud return an array of error messages if email is missing', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: '  ',
+                password: 'secret',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            console.log('Response Body Object:-', response.body)
+
+            // Assert
+            expect(response.body).toHaveProperty('errors')
+            expect(
+                (response.body as Record<string, string>).errors.length,
+            ).toBeGreaterThan(0)
+        })
     })
 
     describe('Fields are not in proper format', () => {
@@ -254,7 +276,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             console.log('Users:', users)
-            const user = users[0]
+            const user = users[1]
             expect(user.email).toBe('panda@mern.space')
         })
 
@@ -277,9 +299,25 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
         })
-        it.todo(
-            'should return 400 status code if password length is less than 8 chars',
-        )
-        it.todo('shoud return an array of error messages if email is missing')
+        it('should return 400 status code if password length is less than 6 chars', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: ' panda@mern.space ',
+                password: 'pass', // 4 chars
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+            expect(response.statusCode).toBe(400)
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
+        })
     })
 })

@@ -10,9 +10,9 @@ export default checkSchema({
         },
     },
     firstName: {
+        trim: true,
         errorMessage: 'First name is required!',
         notEmpty: true,
-        trim: true,
     },
     lastName: {
         errorMessage: 'First name is required!',
@@ -20,9 +20,15 @@ export default checkSchema({
         trim: true,
     },
     password: {
+        trim: true,
         errorMessage: 'First name is required!',
         notEmpty: true,
-        trim: true,
+        isLength: {
+            options: {
+                min: 6,
+            },
+            errorMessage: 'Password length should be at least 6 chars!',
+        },
     },
 })
 
