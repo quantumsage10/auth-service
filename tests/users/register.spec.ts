@@ -145,6 +145,48 @@ describe('POST /auth/register', () => {
             expect(response.statusCode).toBe(expectedStatusCode)
             expect(users).toHaveLength(1)
         })
+
+        it('should return the access token and refresh token inside a cookie', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+
+            let accessToken = null
+            let refreshToken = null
+
+            interface Headers {
+                ['set-cookie']: string[]
+            }
+
+            const cookies =
+                (response.headers as unknown as Headers)['set-cookie'] || []
+
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith('accessToken=')) {
+                    accessToken = cookie.split('=')[1]
+                }
+            })
+
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith('refreshToken=')) {
+                    refreshToken = cookie.split('=')[1]
+                }
+            })
+
+            expect(accessToken).not.toBeNull()
+            expect(refreshToken).not.toBeNull()
+        })
     })
 
     describe('Fields are missing', () => {
