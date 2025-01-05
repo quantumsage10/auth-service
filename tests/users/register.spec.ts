@@ -3,10 +3,10 @@ import app from '../../src/app'
 import { User } from '../../src/entity/User'
 import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
-import { truncateTables } from '../utils'
 import { Roles } from '../../src/constants'
 
 describe('POST /auth/register', () => {
+    // database connection
     let connection: DataSource
 
     beforeAll(async () => {
@@ -147,5 +147,23 @@ describe('POST /auth/register', () => {
         })
     })
 
-    describe('Fields are missing', () => {})
+    describe('Fields are missing', () => {
+        it('should return 400 status code if email validation fails or email fields missing', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: '',
+                password: 'secret',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+            expect(response.statusCode).toBe(400)
+        })
+    })
 })

@@ -145,3 +145,7 @@ rm -rf node_modules package-lock.json
 npm install
 npm install typescript@">=4.8.4 <5.8.0" --save-dev
 ```
+
+### secure data protection
+- password hashing - bcrypt
+- email validation - express-validator
