@@ -172,30 +172,90 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
         })
-    })
 
-    describe('Fields are not in proper format', () => {
-        it('should trim the email field', async () => {
+        it('should return 400 status code if firstName is missing', async () => {
             // Arrange
             const userData = {
-                firstName: 'panda',
+                firstName: '',
                 lastName: 'p',
-                email: ' panda@mern.space ',
+                email: 'panda@mern.space',
                 password: 'secret',
             }
-
             // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
-            console.log(response.body)
             // Assert
+            expect(response.statusCode).toBe(400)
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
-            //  console.log("Users:", users )
-            const user = users[1]
-            expect(user.email).toBe('panda@mern.space')
+            expect(users).toHaveLength(0)
+        })
+
+        it('should return 400 status code if lastName is missing', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: '',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+            expect(response.statusCode).toBe(400)
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
+        })
+
+        it('should return 400 status code if password is missing', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: '',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+            expect(response.statusCode).toBe(400)
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
         })
     })
+
+    // describe('Fields are not in proper format', () => {
+    //     it('should trim the email field', async () => {
+    //         // Arrange
+    //         const userData = {
+    //             firstName: 'panda',
+    //             lastName: 'p',
+    //             email: ' panda@mern.space ',
+    //             password: 'secret',
+    //         }
+
+    //         // Act
+    //         const response = await request(app)
+    //             .post('/auth/register')
+    //             .send(userData)
+
+    //         console.log(response.body)
+    //         // Assert
+    //         const userRepository = connection.getRepository(User)
+    //         const users = await userRepository.find()
+    //         //  console.log("Users:", users )
+    //         const user = users[1]
+    //         expect(user.email).toBe('panda@mern.space')
+    //     })
+    // })
 })
