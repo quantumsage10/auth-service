@@ -165,12 +165,37 @@ describe('POST /auth/register', () => {
             // Assert
             // email validation fails
             expect(response.statusCode).toBe(400)
-            console.log(response.body)
+            // console.log(response.body)
 
             // checking in database, email doesn't store in database if validation fails
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
+        })
+    })
+
+    describe('Fields are not in proper format', () => {
+        it('should trim the email field', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'panda',
+                lastName: 'p',
+                email: ' panda@mern.space ',
+                password: 'secret',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            console.log(response.body)
+            // Assert
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            //  console.log("Users:", users )
+            const user = users[1]
+            expect(user.email).toBe('panda@mern.space')
         })
     })
 })
