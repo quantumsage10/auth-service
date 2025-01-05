@@ -4,6 +4,7 @@ import { User } from '../../src/entity/User'
 import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
 import { Roles } from '../../src/constants'
+import { isJwt } from '../utils'
 
 describe('POST /auth/register', () => {
     // database connection
@@ -186,6 +187,9 @@ describe('POST /auth/register', () => {
 
             expect(accessToken).not.toBeNull()
             expect(refreshToken).not.toBeNull()
+
+            expect(isJwt(accessToken)).toBeTruthy()
+            console.log('Access Token:', accessToken)
         })
     })
 
@@ -318,7 +322,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             console.log('Users:', users)
-            const user = users[1]
+            const user = users[0]
             expect(user.email).toBe('panda@mern.space')
         })
 

@@ -150,4 +150,6 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
 - password hashing - bcrypt
 - email validation - express-validator
 
+### inbuilt crypto in nodejs
 
+- openssl for mac & linux devices

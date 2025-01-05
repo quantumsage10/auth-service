@@ -15,6 +15,7 @@ export default tseslint.config(
             'app.spec.ts',
             '**/*.spec.ts',
             'tests',
+            'scripts/generateKeys.mjs'
         ],
     },
     {
