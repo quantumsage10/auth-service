@@ -163,7 +163,14 @@ describe('POST /auth/register', () => {
                 .send(userData)
 
             // Assert
+            // email validation fails
             expect(response.statusCode).toBe(400)
+            console.log(response.body)
+
+            // checking in database, email doesn't store in database if validation fails
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
         })
     })
 })
