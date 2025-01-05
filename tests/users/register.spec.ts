@@ -234,28 +234,52 @@ describe('POST /auth/register', () => {
         })
     })
 
-    // describe('Fields are not in proper format', () => {
-    //     it('should trim the email field', async () => {
-    //         // Arrange
-    //         const userData = {
-    //             firstName: 'panda',
-    //             lastName: 'p',
-    //             email: ' panda@mern.space ',
-    //             password: 'secret',
-    //         }
+    describe('Fields are not in proper format', () => {
+        it('should trim the email field', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'panda',
+                lastName: 'p',
+                email: ' panda@mern.space ',
+                password: 'secret',
+            }
 
-    //         // Act
-    //         const response = await request(app)
-    //             .post('/auth/register')
-    //             .send(userData)
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
 
-    //         console.log(response.body)
-    //         // Assert
-    //         const userRepository = connection.getRepository(User)
-    //         const users = await userRepository.find()
-    //         //  console.log("Users:", users )
-    //         const user = users[1]
-    //         expect(user.email).toBe('panda@mern.space')
-    //     })
-    // })
+            console.log(response.body)
+            // Assert
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            console.log('Users:', users)
+            const user = users[0]
+            expect(user.email).toBe('panda@mern.space')
+        })
+
+        it('should return 400 status code if email is not a valid email', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: ' runi_mern.space ', // Invalid email
+                password: 'password',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+            expect(response.statusCode).toBe(400)
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
+        })
+        it.todo(
+            'should return 400 status code if password length is less than 8 chars',
+        )
+        it.todo('shoud return an array of error messages if email is missing')
+    })
 })
