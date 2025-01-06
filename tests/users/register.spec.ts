@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../src/config/data-source'
 import { Roles } from '../../src/constants'
 import { isJwt } from '../utils'
+import { RefreshToken } from '../../src/entity/RefreshToken'
 
 describe('POST /auth/register', () => {
     // database connection
@@ -189,8 +190,29 @@ describe('POST /auth/register', () => {
             expect(refreshToken).not.toBeNull()
 
             expect(isJwt(accessToken)).toBeTruthy()
-            console.log('Access Token:', accessToken)
+
             expect(isJwt(refreshToken)).toBeTruthy()
+        })
+
+        it('should store the refresh token in the database', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
+
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // Assert
+
+            const refreshTokenRepo = connection.getRepository(RefreshToken)
+            const refreshTokens = await refreshTokenRepo.find()
+            expect(refreshTokens).toHaveLength(1)
         })
     })
 
@@ -323,7 +345,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             console.log('Users:', users)
-            const user = users[0]
+            const user = users[1]
             expect(user.email).toBe('panda@mern.space')
         })
 
@@ -346,6 +368,7 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
         })
+
         it('should return 400 status code if password length is less than 6 chars', async () => {
             // Arrange
             const userData = {

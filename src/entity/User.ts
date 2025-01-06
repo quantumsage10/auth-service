@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-// db schema
+// db schema for user data
 
 @Entity()
 export class User {
