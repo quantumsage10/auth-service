@@ -108,7 +108,7 @@ docker pull postgres
 docker volume create mernpgdata
 docker volume ls
 # via terminal
-docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=auth -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
 docker ps
 ```
 
@@ -119,6 +119,8 @@ docker ps
 - POSTGRES_PASSWORD=root
 - port=5432
 - server=localhost
+
+> to craete database in azure data studio - in new query section CREATE DATABASE <dbname>, DROP DATABASE <dbname> 
 
 ```bash
 # login in postgres via terminal
