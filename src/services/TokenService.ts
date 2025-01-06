@@ -2,6 +2,7 @@ import fs from 'fs'
 import createHttpError from 'http-errors'
 import { JwtPayload, sign } from 'jsonwebtoken'
 import path from 'path'
+import { Config } from '../config'
 
 export class TokenService {
     generateAccessToken(payload: JwtPayload) {
@@ -26,5 +27,16 @@ export class TokenService {
             issuer: 'auth-service',
         })
         return accessToken
+    }
+
+    generateRefreshToken(payload: JwtPayload) {
+        // console.log(payload)
+        const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
+            algorithm: 'HS256',
+            expiresIn: '1yr',
+            issuer: 'auth-service',
+            jwtid: String(payload.id),
+        })
+        return refreshToken
     }
 }
