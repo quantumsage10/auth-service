@@ -21,8 +21,6 @@ describe('POST/auth/login', () => {
         it('should login the user & return status code 201', async () => {
             // Arrange
             const userData = {
-                firstName: 'runi',
-                lastName: 'p',
                 email: 'runi@mern.space',
                 password: 'secret',
             }
