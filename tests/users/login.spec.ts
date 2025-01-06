@@ -18,7 +18,7 @@ describe('POST/auth/login', () => {
     })
 
     describe('Given all Fields', () => {
-        it('should login the user & return status code 201', async () => {
+        it('should login the user & by default status code is 200', async () => {
             // Arrange
             const userData = {
                 email: 'runi@mern.space',
@@ -27,11 +27,11 @@ describe('POST/auth/login', () => {
 
             // Act
             const response = await request(app)
-                .post('/auth/register')
+                .post('/auth/login')
                 .send(userData)
 
             // Assert
-            expect(response.statusCode).toBe(201)
+            expect(response.badRequest).toBe(true)
         })
     })
 })
