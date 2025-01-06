@@ -3,6 +3,9 @@ import createHttpError from 'http-errors'
 import { JwtPayload, sign } from 'jsonwebtoken'
 import path from 'path'
 import { Config } from '../config'
+import { AppDataSource } from '../config/data-source'
+import { RefreshToken } from '../entity/RefreshToken'
+import { User } from '../entity/User'
 
 export class TokenService {
     generateAccessToken(payload: JwtPayload) {
@@ -38,5 +41,20 @@ export class TokenService {
             jwtid: String(payload.id),
         })
         return refreshToken
+    }
+
+    async persistRefreshToken(user: User) {
+        // Persist the refresh token in Database
+        // The code saves a refresh token for a user in the database, valid for one year.
+
+        const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365
+
+        const refreshTokenRepository = AppDataSource.getRepository(RefreshToken)
+
+        const newRefreshToken = await refreshTokenRepository.save({
+            user: user,
+            expiresAt: new Date(Date.now() + MS_IN_YEAR),
+        })
+        return newRefreshToken
     }
 }
