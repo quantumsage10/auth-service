@@ -8,6 +8,7 @@ import registerValidator from '../validator/validation'
 import { NextFunction, Response } from 'express'
 import { RegisterUserRequest } from '../types'
 import { TokenService } from '../services/TokenService'
+import { RefreshToken } from '../entity/RefreshToken'
 
 const authRouter = express.Router()
 
@@ -17,7 +18,10 @@ const userRepository = AppDataSource.getRepository(User)
 // instance of classes
 const userService = new UserService(userRepository)
 
-const tokenService = new TokenService()
+// dependency injection
+const refreshTokenRepository = AppDataSource.getRepository(RefreshToken)
+
+const tokenService = new TokenService(refreshTokenRepository)
 
 // dependency injection
 const authController = new AuthController(userService, logger, tokenService)

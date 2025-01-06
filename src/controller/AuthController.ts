@@ -50,7 +50,7 @@ export class AuthController {
 
             const accessToken = this.tokenService.generateAccessToken(payload)
 
-            // persist refresh token in database
+            // persist refresh token in database (a record for refresh token)
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
             // Generate a refresh token with the payload(userId & role), including the new token ID as a string.
