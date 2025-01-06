@@ -21,6 +21,8 @@ export class RefreshToken {
     @ManyToOne(() => User)
     user: User
 
+    // userId
+
     @UpdateDateColumn()
     updatedAt: number
 
