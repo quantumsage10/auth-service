@@ -47,4 +47,11 @@ authRouter.post(
         authController.login(req, res, next),
 )
 
+authRouter.get(
+    '/self',
+    loginValidator,
+    (req: RegisterUserRequest, res: Response, next: NextFunction) =>
+        authController.login(req, res, next),
+)
+
 export default authRouter
