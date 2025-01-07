@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request } from 'express'
 import { AuthController } from '../controller/AuthController'
 import { UserService } from '../services/UserServices'
 import { AppDataSource } from '../config/data-source'
@@ -43,15 +43,12 @@ authRouter.post(
 authRouter.post(
     '/login',
     loginValidator,
-    (req: RegisterUserRequest, res: Response, next: NextFunction) =>
+    (req: Request, res: Response, next: NextFunction) =>
         authController.login(req, res, next),
 )
 
-authRouter.get(
-    '/self',
-    loginValidator,
-    (req: RegisterUserRequest, res: Response, next: NextFunction) =>
-        authController.login(req, res, next),
+authRouter.get('/self', loginValidator, (req: Request, res: Response) =>
+    authController.self(req, res),
 )
 
 export default authRouter
