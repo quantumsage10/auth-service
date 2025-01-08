@@ -75,10 +75,19 @@ describe('GET /auth/self', () => {
                 .send()
 
             console.log('response body:', response.body)
+            // response body: {
+            //     id: 1,
+            //     firstName: 'runi',
+            //     lastName: 'p',
+            //     email: 'panda@mern.space',
+            //     password: 'secret', // need to hide password field in response
+            //     role: 'customer'
+            //   }
 
             // Assert
             // Check if user id matches with registered user
             expect((response.body as Record<string, string>).id).toBe(data.id)
         })
+        it.todo("shouldn't return the password field")
     })
 })
