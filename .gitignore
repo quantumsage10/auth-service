@@ -1,5 +1,6 @@
 package-lock.json
 certs
+public
 
 # Logs
 logs
@@ -44,6 +45,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+dist/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
