@@ -8,7 +8,7 @@
         "format:check": "prettier . --check",
         "lint:fix": "eslint . --fix",
         "lint:check": "eslint .",
-        "test": "jest --watchAll --runInBand",
+        "test": "jest refresh.spec.ts",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
         "typeorm": "typeorm-ts-node-commonjs"
@@ -60,6 +60,7 @@
         "pg": "^8.4.0",
         "reflect-metadata": "^0.1.13",
         "rsa-pem-to-jwk": "^1.1.3",
+        "ts-node-dev": "^2.0.0",
         "typeorm": "0.3.20"
     },
     "lint-staged": {

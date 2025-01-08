@@ -170,3 +170,108 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
 ### JWT Verification Signature
 - private & public keys are in PEM format, convert to JWT signature
 - npm i rsa-pem-to-jwk
+
+## Jest Debugging in typescript express
+
+### Debug in typescript
+
+1. typescript function debugging - working
+- install typescript & ts-node & nodemon
+- npx tsc --init  - for tsconfig.json
+
+2. express route debugging 
+- attach to running server  - choose /.bin/ts-node app.ts
+- launch new server 
+3. express typescript debugging
+- attach to running server  - choose /.bin/ts-node app.ts
+- launch new server 
+
+
+```bash
+{
+ "version": "0.2.0",
+ "configurations": [
+ 
+ # server launch mode
+  {
+   "type": "node",
+   "request": "launch",
+   "name": "Launch Program",
+   "skipFiles": [
+    "<node_internals>/**"
+   ],
+   "program": "${workspaceFolder}/app.ts",
+   "outFiles": [
+    "${workspaceFolder}/**/*.js"
+   ]
+  },
+
+# for attach mode
+  {
+   "type": "node",
+   "request": "attach",
+   "name": "Attach to Program",
+   "port": 3000,
+   "processId": "${command:PickProcess}",
+   "skipFiles": ["<node_internals>/**"],
+   "outFiles": [
+    "${workspaceFolder}/**/*.js"
+   ]
+ }
+ ]
+}
+```
+
+4. jest express typescript debugging
+
+- add jest.config.ts file - automatically discovered
+- npm install ts-jset & it's types add to jest config file
+- npx ts-jest config:init
+- npm test or npx jest
+
+```bash
+{
+
+ "version": "0.2.0",
+ "configurations": [
+ 
+ # new jest server
+ {
+    "name": "Jest file",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
+    "args": [
+        "${fileBasenameNoExtension}",
+        "--runInBand",
+        "--watch",
+        "--coverage=false",
+        "--no-cache"
+    ],
+    "cwd": "${workspaceRoot}",
+    "console": "integratedTerminal",
+    "internalConsoleOptions": "neverOpen",
+    "sourceMaps": true,
+    "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest.js"
+    }
+},
+
+# running jest
+  {
+   "type": "node",
+   "request": "attach",
+   "name": "Attach to Program",
+   "port": 3000,
+   "processId": "${command:PickProcess}",
+   "skipFiles": ["<node_internals>/**"],
+   "outFiles": [
+    "${workspaceFolder}/**/*.js"
+   ]
+ }
+ ]
+ ```
+
+ ### install extension - `Jest In Run` in vs code
+
+ > ✨💥 if there is typescript detected error or bug, then debugger won't work in jest it will automatically disconnected...
