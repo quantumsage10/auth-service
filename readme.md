@@ -155,3 +155,14 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
 ### inbuilt crypto in nodejs
 
 - openssl for mac & linux devices
+- generate keys public & private
+
+### mock-jwks to validate public jwt tokens 
+
+- npm i -D mock-jwks@1.0.10 
+
+### implement jwt validation
+
+- npm i jwks-rsa
+- npm i express-jwt
+- npm i cookie-parser
