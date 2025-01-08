@@ -166,3 +166,7 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
 - npm i jwks-rsa
 - npm i express-jwt
 - npm i cookie-parser
+
+### JWT Verification Signature
+- private & public keys are in PEM format, convert to JWT signature
+- npm i rsa-pem-to-jwk

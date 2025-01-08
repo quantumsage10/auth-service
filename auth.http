@@ -19,3 +19,6 @@ Content-Type: application/json
   "email": "runi@mern.space",
   "password": "secret"
 }
+
+### self
+GET http://localhost:5501/auth/self

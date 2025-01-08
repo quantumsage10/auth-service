@@ -16,8 +16,10 @@ export default tseslint.config(
             '**/*.spec.ts',
             'tests',
             'scripts/generateKeys.mjs',
+            'scripts/convertPemToJwk.mjs',
         ],
     },
+    
     {
         languageOptions: {
             parserOptions: {

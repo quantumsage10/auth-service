@@ -88,6 +88,7 @@ describe('GET /auth/self', () => {
             // Check if user id matches with registered user
             expect((response.body as Record<string, string>).id).toBe(data.id)
         })
+
         it("shouldn't return the password field", async () => {
             // Register user
             const userData = {
@@ -122,6 +123,31 @@ describe('GET /auth/self', () => {
             expect(response.body as Record<string, string>).not.toHaveProperty(
                 'password',
             )
+        })
+
+        it('should return 401 status code if access token does not exists', async () => {
+            // Register user
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
+
+            const userRepository = connection.getRepository(User)
+            await userRepository.save({
+                ...userData,
+                role: Roles.CUSTOMER,
+            })
+
+            // Add token to cookie
+            const response = await request(app).get('/auth/self').send()
+
+            console.log('response body without password field:', response.body)
+
+            // Assert
+            // Check if user id matches with registered user
+            expect(response.statusCode).toBe(401)
         })
     })
 })
