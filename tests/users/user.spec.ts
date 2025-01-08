@@ -33,7 +33,7 @@ describe('GET /auth/self', () => {
         it('should return the 200 status code', async () => {
             // send token compulsory
             const accessToken = jwks.token({
-                sub: '1',
+                sub: '100',
                 role: Roles.CUSTOMER,
             })
 
@@ -73,6 +73,8 @@ describe('GET /auth/self', () => {
                 .get('/auth/self')
                 .set('Cookie', [`accessToken=${accessToken}`])
                 .send()
+
+            console.log('response body:', response.body)
 
             // Assert
             // Check if user id matches with registered user
