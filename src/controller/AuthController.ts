@@ -185,6 +185,6 @@ export class AuthController {
         // console.log("Decoded sub:", Number(req.auth.sub));
 
         // console.log("USER SELF:-",user)
-        res.json(user)
+        res.json({ ...user, password: undefined })
     }
 }
