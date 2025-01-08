@@ -5,3 +5,8 @@ tsconfig.json
 readme.md
 package*.json
 package-lock.json
+
+eslint.config.mjs
+scripts/convertPemToJwk.mjs
+scripts/generateKeys.mjs
+.env.example
