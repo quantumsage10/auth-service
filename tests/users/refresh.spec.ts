@@ -11,7 +11,7 @@ dotenv.config()
 
 describe('POST /auth/refresh', () => {
     let connection: DataSource
-    const secret = process.env.REFRESH_TOKEN_SECRET || '' // Shared secret for HS256
+    const secret = process.env.REFRESH_TOKEN_SECRET! // Shared secret for HS256
 
     beforeAll(async () => {
         connection = await AppDataSource.initialize()
