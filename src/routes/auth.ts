@@ -52,4 +52,8 @@ authRouter.get('/self', authenticate, (req: Request, res: Response) =>
     authController.self(req as AuthRequest, res),
 )
 
+authRouter.get('/refresh', (req: Request, res: Response) =>
+    authController.refresh(req, res),
+)
+
 export default authRouter
