@@ -8,9 +8,9 @@ const startServer = async () => {
     try {
         // database connection
         await AppDataSource.initialize()
-        logger.info('Database Connection successfully')
+        logger.info('First Database Connection successfully')
 
-        app.listen(PORT, () => logger.info(`http://localhost:${PORT}`))
+        app.listen(PORT, () => logger.info(`Second - http://localhost:${PORT}`))
         logger.warn('warning')
         logger.error('error')
         logger.debug('debug')

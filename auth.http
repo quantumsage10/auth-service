@@ -26,3 +26,8 @@ GET http://localhost:5501/auth/self
 ###
 POST http://localhost:5501/auth/refresh
 Content-Type: application/json
+
+### jwt keys converted
+GET http://localhost:5501/.well-known/jwks.json
+
+### 
