@@ -58,30 +58,43 @@ describe('POST /auth/logout', () => {
             let refreshToken = null
 
             // cookies extraction
-            cookies.forEach((cookie) => {
-                if (cookie.startsWith('accessToken=')) {
-                    accessToken = cookie.split(';')[0] + ';'
-                }
+            // cookies.forEach((cookie) => {
+            //     if (cookie.startsWith('accessToken=')) {
+            //         accessToken = cookie.split(';')[0] + ';'
+            //     }
 
-                if (cookie.startsWith('refreshToken=')) {
-                    refreshToken = cookie.split(';')[0]
-                }
-            })
+            //     if (cookie.startsWith('refreshToken=')) {
+            //         refreshToken = cookie.split(';')[0]
+            //     }
+            // })
 
             // console.log('COOKIES', cookies)
             // console.log('ACCESS TOKEN:', accessToken)
             // console.log('REFRESH TOKEN', refreshToken)
 
-            const cookiesnew =
-                accessToken && refreshToken
-                    ? accessToken + ' ' + refreshToken
-                    : ''
-            console.log('COOKIES NEW:', cookiesnew)
+            // const cookiesnew =
+            //     accessToken && refreshToken
+            //         ? accessToken + ' ' + refreshToken
+            //         : ''
+            // console.log('COOKIES NEW:', cookiesnew)
+
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith('accessToken=')) {
+                    accessToken = cookie.split(';')[0].split('=')[1]
+                }
+
+                if (cookie.startsWith('refreshToken=')) {
+                    refreshToken = cookie.split(';')[0].split('=')[1]
+                }
+            })
 
             // Act: make a logout request with the cookies
             const logoutResponse = await request(app)
                 .post('/auth/logout')
-                .set('Cookie', cookiesnew)
+                .set('Cookie', [
+                    `accessToken=${accessToken}`,
+                    `refreshToken=${refreshToken}`,
+                ])
                 .send()
 
             expect(isJwt(accessToken)).toBeTruthy()
