@@ -68,17 +68,15 @@ describe('POST /auth/logout', () => {
                 }
             })
 
-            console.log('COOKIES', cookies)
-            console.log('ACCESS TOKEN:', accessToken)
-            console.log('REFRESH TOKEN', refreshToken)
+            // console.log('COOKIES', cookies)
+            // console.log('ACCESS TOKEN:', accessToken)
+            // console.log('REFRESH TOKEN', refreshToken)
 
             const cookiesnew =
                 accessToken && refreshToken
                     ? accessToken + ' ' + refreshToken
                     : ''
             console.log('COOKIES NEW:', cookiesnew)
-
-            //    const cookie = 'accessToken=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5Iiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzM2NTAzMTM4LCJleHAiOjE3MzY1MDY3MzgsImlzcyI6ImF1dGgtc2VydmljZSJ9.U7NCXPIEgygQD-lJuLDOcKrmxr6-HLptilTy8k7QKYvjTrYs2alE6g91axBmxToUIrVZpaOjqr9-OrCeKEDxuNq8LXbhDtX3R74KCRFBojbRj6Pb-azaCZ5TlKXu1O0_7VoSexxCxbBziEgTzmLZ0uS5Q5Ffj5YRCCupM8bOKKbvfsPoabXZQ3TgsfsphBfxhk85KgHwx3j1L0-R1ZHu4oiXVrT_Yyh8hpo-Oib3gj8hRzalQFB44dR513_OUWhUmepDc7X1MUuw9tS5DRL_yfi7qNCo7IqIj8oxERalwSkQSrM1jjq5NCgWwiGi4Qf9AKA22uroGZ4dG1BswKAe8w; refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5Iiwicm9sZSI6ImN1c3RvbWVyIiwiaWQiOiIxNDYiLCJpYXQiOjE3MzY1MDMxMzgsImV4cCI6MTc2ODA2MDczOCwiaXNzIjoiYXV0aC1zZXJ2aWNlIiwianRpIjoiMTQ2In0.MAZYUp-5PUfmQheuySt_QiRxktB6wMGGX-yJLfE6BVU'
 
             // Act: make a logout request with the cookies
             const logoutResponse = await request(app)
@@ -91,26 +89,26 @@ describe('POST /auth/logout', () => {
             expect(logoutResponse.statusCode).toBe(200) // Expect 200 OK for successful logout
         }, 5000000) // You can adjust this timeout if needed
 
-        // it('should return 401 if no valid cookies are provided', async () => {
-        //     // Act: make a logout request with no cookies
-        //     const logoutResponse = await request(app).post('/auth/logout')
+        it('should return 401 if no valid cookies are provided', async () => {
+            // Act: make a logout request with no cookies
+            const logoutResponse = await request(app).post('/auth/logout')
 
-        //     // Assert: check for failure due to missing cookies
-        //     expect(logoutResponse.statusCode).toBe(401); // Expect 401 Unauthorized
-        // })
+            // Assert: check for failure due to missing cookies
+            expect(logoutResponse.statusCode).toBe(401) // Expect 401 Unauthorized
+        })
 
-        // it('should return 401 if the user is not logged in (invalid cookies)', async () => {
-        //     // Act: make a logout request with invalid cookies
-        //     const logoutResponse = await request(app)
-        //         .post('/auth/logout')
-        //         .set('Cookie', [
-        //             'accessToken=invalid_token',
-        //             'refreshToken=invalid_token'
-        //         ])
-        //         .send()
+        it('should return 401 if the user is not logged in (invalid cookies)', async () => {
+            // Act: make a logout request with invalid cookies
+            const logoutResponse = await request(app)
+                .post('/auth/logout')
+                .set('Cookie', [
+                    'accessToken=invalid_token',
+                    'refreshToken=invalid_token',
+                ])
+                .send()
 
-        //     // Assert: check for failure due to invalid cookies
-        //     expect(logoutResponse.statusCode).toBe(401); // Expect 401 Unauthorized
-        // })
+            // Assert: check for failure due to invalid cookies
+            expect(logoutResponse.statusCode).toBe(401) // Expect 401 Unauthorized
+        })
     })
 })
