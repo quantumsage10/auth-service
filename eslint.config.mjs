@@ -17,6 +17,7 @@ export default tseslint.config(
             'tests',
             'scripts/generateKeys.mjs',
             'scripts/convertPemToJwk.mjs',
+            'src/migration/1736524240857-migration.ts'
         ],
     },
     

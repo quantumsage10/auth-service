@@ -127,6 +127,24 @@ docker ps
 docker exec -it <postgrescontainerName> psql -U <username>
 ```
 
+> database connection info
+
+```bash
+# total active connections
+SELECT pid, usename, datname, state 
+FROM pg_stat_activity 
+WHERE datname = '<dbname>';
+
+# terminate all active connections
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = '<dbname>' AND pid <> pg_backend_pid();
+
+# drop database
+DROP DATABASE "<dbname>" ;
+DROP DATABASE "<dbname>" WITH (FORCE);
+```
+
 ### database connnection with typeorm
 
 - one query for all different databases interaction(mongodb,postgres)
@@ -272,6 +290,41 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
  ]
  ```
 
- ### install extension - `Jest In Run` in vs code
+### install extension - `Jest In Run` in vs code
 
  > ✨💥 if there is typescript detected error or bug, then debugger won't work in jest it will automatically disconnected...
+
+## Database Migration
+
+- typeorm migration docs
+- synchronize in production turned off
+- inside cli - select Generate a migration from existing table schema
+
+### Generate Migration alraedy existing database schema
+
+- typeorm-ts-node-commonjs migration:generate src/migration/migration.ts -d src/config/data-source.ts
+
+### Create Migration script already existing database
+
+- manually create new clean database
+
+```bash
+npm run migration:generate
+```
+
+### Run migrations
+
+- typeorm migration:run -- -d src/config/data-source.ts
+- inside database - all tables will craete & additionally migration table also creates
+
+### Revert back migrations
+
+- typeorm migration:revert -- -d src/config/data-source.ts
+
+### Show all migrations
+
+- typeorm migration:show  -- -d src/config/data-source.ts
+
+### Create a new migration script
+
+- typeorm migration:create src/migration/migration

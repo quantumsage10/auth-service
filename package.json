@@ -11,7 +11,9 @@
         "test": "jest logout.spec.ts --watch --runInBand",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
-        "typeorm": "typeorm-ts-node-commonjs"
+        "migration:generate": "typeorm-ts-node-commonjs migration:generate src/migration/migration -d src/config/data-source.ts",
+        "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts",
+        "migration:create": "typeorm-ts-node-commonjs typeorm migration:create src/migration/mgfl"
     },
     "author": "Runi Panda ",
     "license": "ISC",

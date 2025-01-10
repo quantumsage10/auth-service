@@ -14,9 +14,9 @@ export const AppDataSource = new DataSource({
 
     // Don't use this in production, always use false
 
-    synchronize: true,
+    synchronize: false, // tables create inside db
     logging: false,
     entities: [User, RefreshToken],
-    migrations: [],
+    migrations: ['src/migration/*.ts'], // as migration scripts
     subscribers: [],
 })
