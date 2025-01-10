@@ -79,8 +79,10 @@ describe('POST/auth/login', () => {
             // Assert
             let accessToken = null
             let refreshToken = null
+
             const cookies =
                 (response.headers as unknown as Headers)['set-cookie'] || []
+
             cookies.forEach((cookie) => {
                 if (cookie.startsWith('accessToken=')) {
                     accessToken = cookie.split(';')[0].split('=')[1]
@@ -95,6 +97,7 @@ describe('POST/auth/login', () => {
 
             expect(isJwt(accessToken)).toBeTruthy()
             expect(isJwt(refreshToken)).toBeTruthy()
+            expect(response.statusCode).toBe(200)
         })
         it('should return the 400 if email or password is wrong', async () => {
             // Arrange

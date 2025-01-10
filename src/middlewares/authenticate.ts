@@ -10,6 +10,7 @@ export default expressjwt({
         rateLimit: true,
     }) as unknown as GetVerificationKey,
     algorithms: ['RS256'],
+
     getToken(req: Request) {
         const authHeader = req.headers.authorization
 
@@ -26,6 +27,7 @@ export default expressjwt({
         }
 
         const { accessToken } = req.cookies as AuthCookie
+
         return accessToken
     },
 })

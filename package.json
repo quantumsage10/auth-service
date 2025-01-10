@@ -8,7 +8,7 @@
         "format:check": "prettier . --check",
         "lint:fix": "eslint . --fix",
         "lint:check": "eslint .",
-        "test": "jest user.spec.ts --watch --runInBand",
+        "test": "jest logout.spec.ts --watch --runInBand",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
         "typeorm": "typeorm-ts-node-commonjs"

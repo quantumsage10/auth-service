@@ -44,7 +44,7 @@ export class AuthController {
                 password,
             })
 
-            this.logger.info('User has been registered', { id: user.id })
+            this.logger.info('User has been registered', { sub: user.id })
 
             const payload: JwtPayload = {
                 sub: String(user.id),
@@ -78,7 +78,7 @@ export class AuthController {
                 httpOnly: true,
             })
 
-            res.status(201).json({ id: user.id })
+            res.status(201).json({ sub: user.id })
         } catch (error) {
             next(error)
             return
@@ -169,7 +169,7 @@ export class AuthController {
 
             // Return the response (id)
 
-            res.json({ id: user.id })
+            res.json({ sub: user.id })
         } catch (error) {
             next(error)
             return
@@ -239,6 +239,27 @@ export class AuthController {
         } catch (err) {
             next(err)
             return
+        }
+    }
+
+    async logout(req: AuthRequest, res: Response, next: NextFunction) {
+        console.log('AUTH LOGOUT:-', req.auth)
+        console.log('AUTH USER ID', req.auth.id)
+        try {
+            // here req takes an id & sub field also
+            await this.tokenService.deleteRefreshToken(Number(req.auth.id))
+
+            this.logger.info('Refresh Token has been deleted', {
+                id: req.auth.id,
+            })
+            this.logger.info('User has been logged out', { id: req.auth.sub })
+
+            res.clearCookie('accessToken')
+            res.clearCookie('refreshToken')
+            res.json({})
+        } catch (err) {
+            this.logger.error('Error during logout', { error: err })
+            next(err)
         }
     }
 }
