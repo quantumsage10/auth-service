@@ -307,9 +307,10 @@ npm install typescript@">=4.8.4 <5.8.0" --save-dev
 ### Create Migration script already existing database
 
 - manually create new clean database
+- generate new migration file which contains - database queries generate by typeorm
 
 ```bash
-npm run migration:generate
+npm run migration:generate -- src/migration/fileName -d src/config/data-source.ts
 ```
 
 ### Run migrations
@@ -328,3 +329,8 @@ npm run migration:generate
 ### Create a new migration script
 
 - typeorm migration:create src/migration/migration
+
+### Migration for rename tables
+
+- refresh & again create connection to resolve caching issues in Azure Data Studio
+- seen inside Explorar > `dbname` > Schemas > public > Sequences Pane in azure Data studio

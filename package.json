@@ -11,7 +11,7 @@
         "test": "jest logout.spec.ts --watch --runInBand",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
-        "migration:generate": "typeorm-ts-node-commonjs migration:generate src/migration/migration -d src/config/data-source.ts",
+        "migration:generate": "typeorm-ts-node-commonjs migration:generate",
         "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts",
         "migration:create": "typeorm-ts-node-commonjs typeorm migration:create src/migration/mgfl"
     },
