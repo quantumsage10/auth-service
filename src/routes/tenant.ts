@@ -1,9 +1,20 @@
 import express from 'express'
+import { TenantController } from '../controller/TenantController'
+import { TenantService } from '../services/TenantService'
+import { AppDataSource } from '../config/data-source'
+import { Tenant } from '../entity/Tenant'
+import logger from '../config/logger'
 
-const router = express.Router()
+const tenantRouter = express.Router()
 
-router.post('/', (req, res) => {
-    res.status(201).json({})
-})
+const userRepository = AppDataSource.getRepository(Tenant)
 
-export default router
+const tenantService = new TenantService(userRepository)
+
+const tenantController = new TenantController(tenantService, logger)
+
+tenantRouter.post('/', (req, res, next) =>
+    tenantController.create(req, res, next),
+)
+
+export default tenantRouter
