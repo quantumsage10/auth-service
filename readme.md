@@ -334,3 +334,21 @@ npm run migration:generate -- src/migration/fileName -d src/config/data-source.t
 
 - refresh & again create connection to resolve caching issues in Azure Data Studio
 - seen inside Explorar > `dbname` > Schemas > public > Sequences Pane in azure Data studio
+
+## Multi-Tenacy
+
+- Multi-tenancy is an architecture where a single instance of software serves multiple customers (called tenants). Each tenant's data and configuration is isolated from others, even though they're sharing the same application and infrastructure resources.
+
+Common examples include:
+
+Cloud Hosting SaaS applications like Salesforce, where each company has its own isolated environment
+Email services where users share the same application but have private inboxes
+
+### Analogy of multi-tenacy
+
+Think of it like an apartment building:
+
+- The building itself is the software application
+- Each apartment represents a tenant's dedicated space
+- Tenants share common infrastructure (plumbing, electricity) but   have private living spaces
+- Each tenant can customize their space within certain limits
