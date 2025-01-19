@@ -350,5 +350,16 @@ Think of it like an apartment building:
 
 - The building itself is the software application
 - Each apartment represents a tenant's dedicated space
-- Tenants share common infrastructure (plumbing, electricity) but   have private living spaces
+- Tenants share common infrastructure (plumbing, electricity) but have    private living spaces
 - Each tenant can customize their space within certain limits
+
+## Typescript Build
+
+- add script build in package.json - "build"
+- add .env.dev file & certs keys file in dist
+
+```bash
+- npm run build
+- cd dist
+- NODE_ENV=dev node src/server.js
+```
