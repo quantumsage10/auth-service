@@ -427,3 +427,10 @@ docker run <imageName>
 
 - backend-as-a-service (BaaS)
 - for postgres db server setup readymade
+
+## Sonar Cloud
+
+- cloud-based code quality and security service 
+- usecase - to detect errors via CI/CD pipelines and version control systems
+- generate security key in sonar , Accounts > security > generate key
+
