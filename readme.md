@@ -434,3 +434,9 @@ docker run <imageName>
 - usecase - to detect errors via CI/CD pipelines and version control systems
 - generate security key in sonar , Accounts > security > generate key
 
+## Docker Hub Setup
+
+- After Branch Merging
+- Store App Image (in js production ready code)
+- generate access token in accounts settings
+
