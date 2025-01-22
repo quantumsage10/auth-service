@@ -164,8 +164,8 @@ describe('POST /auth/register', () => {
 
             // Assert
 
-            let accessToken = null
-            let refreshToken = null
+            let accessToken: string | null = null
+            let refreshToken: string | null = null
 
             interface Headers {
                 ['set-cookie']: string[]
