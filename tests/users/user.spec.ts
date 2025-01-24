@@ -30,22 +30,22 @@ describe('GET /auth/self', () => {
     })
 
     describe('Given all Fields', () => {
-        // it('should return the 200 status code', async () => {
-        //     // send token compulsory
-        //     const accessToken = jwks.token({
-        //         sub: '100',
-        //         role: Roles.CUSTOMER,
-        //     })
+        it('should return the 200 status code', async () => {
+            // send token compulsory
+            const accessToken = jwks.token({
+                sub: '100',
+                role: Roles.CUSTOMER,
+            })
 
-        //     //  console.log("Access Token :",accessToken )
-        //     const response = await request(app)
-        //         .get('/auth/self')
-        //         .set('Cookie', [`accessToken=${accessToken}`])
-        //         .send()
+            //  console.log("Access Token :",accessToken )
+            const response = await request(app)
+                .get('/auth/self')
+                .set('Cookie', [`accessToken=${accessToken}`])
+                .send()
 
-        //     // console.log("Response Body:", response.body)
-        //     expect(response.statusCode).toBe(200)
-        // })
+            // console.log("Response Body:", response.body)
+            expect(response.statusCode).toBe(200)
+        })
 
         it('should return the user data', async () => {
             // Register user
@@ -89,65 +89,65 @@ describe('GET /auth/self', () => {
             expect((response.body as Record<string, string>).id).toBe(data.id)
         }, 500000)
 
-        // it("shouldn't return the password field", async () => {
-        //     // Register user
-        //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: 'panda@mern.space',
-        //         password: 'secret',
-        //     }
+        it("shouldn't return the password field", async () => {
+            // Register user
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
 
-        //     const userRepository = connection.getRepository(User)
-        //     const data = await userRepository.save({
-        //         ...userData,
-        //         role: Roles.CUSTOMER,
-        //     })
+            const userRepository = connection.getRepository(User)
+            const data = await userRepository.save({
+                ...userData,
+                role: Roles.CUSTOMER,
+            })
 
-        //     // Generate Token
-        //     const accessToken = jwks.token({
-        //         sub: String(data.id),
-        //         role: data.role,
-        //     })
+            // Generate Token
+            const accessToken = jwks.token({
+                sub: String(data.id),
+                role: data.role,
+            })
 
-        //     // Add token to cookie
-        //     const response = await request(app)
-        //         .get('/auth/self')
-        //         .set('Cookie', [`accessToken=${accessToken}`])
-        //         .send()
+            // Add token to cookie
+            const response = await request(app)
+                .get('/auth/self')
+                .set('Cookie', [`accessToken=${accessToken}`])
+                .send()
 
-        //     console.log('response body without password field:', response.body)
+            console.log('response body without password field:', response.body)
 
-        //     // Assert
-        //     // Check if user id matches with registered user
-        //     expect(response.body as Record<string, string>).not.toHaveProperty(
-        //         'password',
-        //     )
-        // })
+            // Assert
+            // Check if user id matches with registered user
+            expect(response.body as Record<string, string>).not.toHaveProperty(
+                'password',
+            )
+        })
 
-        // it('should return 401 status code if access token does not exists', async () => {
-        //     // Register user
-        //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: 'panda@mern.space',
-        //         password: 'secret',
-        //     }
+        it('should return 401 status code if access token does not exists', async () => {
+            // Register user
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
 
-        //     const userRepository = connection.getRepository(User)
-        //     await userRepository.save({
-        //         ...userData,
-        //         role: Roles.CUSTOMER,
-        //     })
+            const userRepository = connection.getRepository(User)
+            await userRepository.save({
+                ...userData,
+                role: Roles.CUSTOMER,
+            })
 
-        //     // Add token to cookie
-        //     const response = await request(app).get('/auth/self').send()
+            // Add token to cookie
+            const response = await request(app).get('/auth/self').send()
 
-        //     console.log('response body without password field:', response.body)
+            console.log('response body without password field:', response.body)
 
-        //     // Assert
-        //     // Check if user id matches with registered user
-        //     expect(response.statusCode).toBe(401)
-        // })
+            // Assert
+            // Check if user id matches with registered user
+            expect(response.statusCode).toBe(401)
+        })
     })
 })

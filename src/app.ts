@@ -8,6 +8,7 @@ import tenantRouter from './routes/tenant'
 import userRouter from './routes/user'
 
 const app = express()
+
 app.use(
     express.static('public', {
         maxAge: '1yr', // Cache for one year
