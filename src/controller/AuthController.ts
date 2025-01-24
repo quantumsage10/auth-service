@@ -22,13 +22,13 @@ export class AuthController {
         res: Response,
         next: NextFunction,
     ) {
-        const { firstName, lastName, email, password } = req.body
-
         const result = validationResult(req)
         if (!result.isEmpty()) {
             //    return res.send(`Hello, ${req.query.person}`)
             res.status(400).json({ errors: result.array() })
         }
+
+        const { firstName, lastName, email, password } = req.body
 
         this.logger.debug('New Request to register a User', {
             firstName,

@@ -47,8 +47,10 @@ authRouter.post(
 authRouter.post(
     '/login',
     loginValidator,
-    (req: Request, res: Response, next: NextFunction) =>
-        authController.login(req, res, next),
+    async (req: Request, res: Response, next: NextFunction) => {
+        await authController.login(req, res, next)
+        console.log('Hello, World!')
+    },
 )
 
 authRouter.get('/self', authenticate, (req: Request, res: Response) =>

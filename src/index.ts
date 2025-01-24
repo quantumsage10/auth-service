@@ -2,6 +2,9 @@ import { AppDataSource } from './config/data-source'
 import { User } from './entity/User'
 
 AppDataSource.initialize()
+
+    // firsttime health check
+
     .then(async () => {
         console.log('Inserting a new user into the database...')
         const user = new User()
@@ -20,3 +23,8 @@ AppDataSource.initialize()
         )
     })
     .catch((error) => console.log(error))
+
+// health-check
+// first schema
+// insert record
+// select record
