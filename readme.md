@@ -108,7 +108,7 @@ docker pull postgres
 docker volume create mernpgdata
 docker volume ls
 # via terminal
-docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=auth -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+docker run --rm --name mernpg-container -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=root -e POSTGRES_DB=auth_service -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
 docker ps
 ```
 
@@ -315,16 +315,16 @@ npm run migration:generate -- src/migration/fileName -d src/config/data-source.t
 
 ### Run migrations
 
-- typeorm migration:run -- -d src/config/data-source.ts
+- typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts
 - inside database - all tables will craete & additionally migration table also creates
 
 ### Revert back migrations
 
-- typeorm migration:revert -- -d src/config/data-source.ts
+- typeorm-ts-node-commonjs migration:revert -- -d src/config/data-source.ts
 
 ### Show all migrations
 
-- typeorm migration:show  -- -d src/config/data-source.ts
+- typeorm-ts-node-commonjs migration:show  -- -d src/config/data-source.ts
 
 ### Create a new migration script
 
@@ -440,3 +440,20 @@ docker run <imageName>
 - Store App Image (in js production ready code)
 - generate access token in accounts settings
 
+### GIT BRANCH
+
+```bash
+git pull
+
+# create new branch & switch
+git checkout -b cors
+
+# to check current branch
+git branch
+```
+
+### CORS
+
+- npm i cors
+- to talk to another server
+- allow request from another server

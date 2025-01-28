@@ -6,7 +6,7 @@ Content-Type: application/json
 {
   "firstName": "runi",
   "lastName": "p",
-  "email": "runi@mern.space",
+  "email": "panda@mern.space",
   "password": "secret"
 }
 
@@ -16,9 +16,19 @@ POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "runi@mern.space",
+  "email": "panda@mern.space",
   "password": "secret"
 }
+
+###
+POST http://localhost:5173/auth/login
+Content-Type: application/json
+
+{
+  "email": "panda@mern.space",
+  "password": "secret"
+}
+
 
 ### self
 GET http://localhost:5501/auth/self
