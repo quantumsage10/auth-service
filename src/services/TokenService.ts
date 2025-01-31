@@ -12,25 +12,6 @@ export class TokenService {
 
     generateAccessToken(payload: JwtPayload) {
         let privateKey: Buffer
-
-        //    console.log("PRIVATE KEY:-",Config.PRIVATE_KEY)
-
-        //     if (!Config.PRIVATE_KEY) {
-        //         const error = createHttpError(500, 'ACCESS_SECRET_KEY is not set')
-        //         throw error
-        //     }
-
-        //     try {
-        //         privateKey = Config.PRIVATE_KEY
-        //     } catch (err) {
-        //         const error = createHttpError(
-        //             500,
-        //             'Error while reading private key',
-        //         )
-        //         throw error
-        //         console.log(err)
-        //     }
-
         try {
             privateKey = fs.readFileSync(
                 path.join(__dirname, '../../certs/public.pem'),

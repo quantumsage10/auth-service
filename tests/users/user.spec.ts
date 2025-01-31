@@ -87,7 +87,7 @@ describe('GET /auth/self', () => {
             // Assert
             // Check if user id matches with registered user
             expect((response.body as Record<string, string>).id).toBe(data.id)
-        }, 500000)
+        })
 
         it("shouldn't return the password field", async () => {
             // Register user

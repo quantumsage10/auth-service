@@ -10,7 +10,7 @@ export const canAccess = (roles: string[]) => {
         if (!roles.includes(roleFromToken)) {
             const error = createHttpError(
                 403,
-                "You don't have enough permissions",
+                "You don't have enough permissions, No Token",
             )
 
             next(error)

@@ -246,7 +246,7 @@ export class AuthController {
 
     async logout(req: AuthRequest, res: Response, next: NextFunction) {
         console.log('AUTH LOGOUT:-', req.auth)
-        console.log('AUTH USER ID', req.auth.id)
+        console.log('AUTH LOGOUT USER ID', req.auth.id)
         try {
             // here req takes an id & sub field also
             await this.tokenService.deleteRefreshToken(Number(req.auth.id))

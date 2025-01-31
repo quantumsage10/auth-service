@@ -6,8 +6,9 @@ Content-Type: application/json
 {
   "firstName": "runi",
   "lastName": "p",
-  "email": "panda@mern.space",
-  "password": "secret"
+  "email": "adminr@mern.space",
+  "password": "secret",
+ 
 }
 
 ### login 
@@ -16,18 +17,40 @@ POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "panda@mern.space",
+  "email": "adminr@mern.space",
   "password": "secret"
 }
 
-###
-POST http://localhost:5173/auth/login
+### admin 
+
+POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "panda@mern.space",
+  "email": "admin@mern.space",
   "password": "secret"
 }
+
+### customer
+
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@mern.space",
+  "password": "secret"
+}
+
+### manager
+
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "manager@mern.space",
+  "password": "secret"
+}
+
 
 
 ### self
@@ -51,3 +74,23 @@ Content-Type: application/json
 
 ### then logout
 POST http://localhost:5501/auth/logout
+
+
+### register tenants
+POST http://localhost:5501/tenants
+Content-Type: application/json
+
+{  
+  "name": "runi",
+  "address": "USA"
+}
+
+
+### register users with tenant id
+
+
+
+
+
+### get users
+GET http://localhost:5501/users
