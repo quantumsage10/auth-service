@@ -1,57 +1,24 @@
-### register
+### ADMIN register
 
 POST http://localhost:5501/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "runi",
+  "firstName": "admin",
   "lastName": "p",
-  "email": "adminr@mern.space",
-  "password": "secret",
- 
+  "email": "radmin@mern.space",
+  "password": "secret"
 }
 
-### login 
+### ADMIN login 
 
 POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "adminr@mern.space",
+  "email": "radmin@mern.space",
   "password": "secret"
 }
-
-### admin 
-
-POST http://localhost:5501/auth/login
-Content-Type: application/json
-
-{
-  "email": "admin@mern.space",
-  "password": "secret"
-}
-
-### customer
-
-POST http://localhost:5501/auth/login
-Content-Type: application/json
-
-{
-  "email": "customer@mern.space",
-  "password": "secret"
-}
-
-### manager
-
-POST http://localhost:5501/auth/login
-Content-Type: application/json
-
-{
-  "email": "manager@mern.space",
-  "password": "secret"
-}
-
-
 
 ### self
 GET http://localhost:5501/auth/self
@@ -76,20 +43,30 @@ Content-Type: application/json
 POST http://localhost:5501/auth/logout
 
 
+
 ### register tenants
 POST http://localhost:5501/tenants
 Content-Type: application/json
 
 {  
-  "name": "runi",
-  "address": "USA"
+  "name": "john",
+  "address": "CANADA"
 }
 
 
 ### register users with tenant id
 
+POST http://localhost:5501/users
+Content-Type: application/json
 
-
+{
+    "firstName": "john",
+    "lastName": "p",
+    "email": "johndoe@mern.space",
+    "password": "password",
+    "role": "customer",
+    "tenantId": 3
+}
 
 
 ### get users

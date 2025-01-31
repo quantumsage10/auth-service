@@ -53,10 +53,10 @@ describe('POST/auth/login', () => {
         it('should return the access token and refresh token inside a cookie', async () => {
             // Arrange
             const userData = {
-                firstName: 'Rakesh',
-                lastName: 'K',
-                email: 'rakesh@mern.space',
-                password: 'password',
+                firstName: 'admin',
+                lastName: 'r',
+                email: 'admin@mern.space',
+                password: 'secret',
             }
 
             const hashedPassword = await bcrypt.hash(userData.password, 10)
@@ -65,7 +65,7 @@ describe('POST/auth/login', () => {
             await userRepository.save({
                 ...userData,
                 password: hashedPassword,
-                role: Roles.CUSTOMER,
+                role: Roles.ADMIN,
             })
 
             // Act
@@ -77,8 +77,8 @@ describe('POST/auth/login', () => {
                 ['set-cookie']: string[]
             }
             // Assert
-            let accessToken = null
-            let refreshToken = null
+            let accessToken: string | null = null
+            let refreshToken: string | null = null
 
             const cookies =
                 (response.headers as unknown as Headers)['set-cookie'] || []
