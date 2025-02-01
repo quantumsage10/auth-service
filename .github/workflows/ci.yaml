@@ -17,6 +17,11 @@ jobs:
               run: npm ci
             - name: Run eslint
               run: npm run lint
+            - name: Test DNS Resolution
+              run: nslookup db.ydurfngddxkhpgbfpveq.supabase.co
+
+            - name: Test Database Connection
+              run: PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }} psql -h db.ydurfngddxkhpgbfpveq.supabase.co -p 5432 -d postgres -U postgres -c "SELECT NOW();"
             - name: Test and coverage
               run: npm run test
               env:
