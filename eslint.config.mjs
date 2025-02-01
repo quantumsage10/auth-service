@@ -34,6 +34,7 @@ export default tseslint.config(
         rules: {
             'no-console': 'off',
             'dot-notation': 'off',
+            "@typescript-eslint/require-await": "off",
         },
     },
 )
