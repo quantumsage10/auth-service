@@ -1,35 +1,33 @@
-import express, { Request } from 'express'
-import { AuthController } from '../controller/AuthController'
-import { UserService } from '../services/UserServices'
+import express, {
+    NextFunction,
+    Request,
+    RequestHandler,
+    Response,
+} from 'express'
+
 import { AppDataSource } from '../config/data-source'
 import { User } from '../entity/User'
 import logger from '../config/logger'
-import registerValidator from '../validator/registerValidation'
-import { NextFunction, Response } from 'express'
-import { AuthRequest, RegisterUserRequest } from '../types'
+
 import { TokenService } from '../services/TokenService'
 import { RefreshToken } from '../entity/RefreshToken'
-import loginValidator from '../validator/loginValidator'
 import { CredentialService } from '../services/CredentialService'
 import authenticate from '../middlewares/authenticate'
-import validateRefreshToken from '../middlewares/validateRefresh'
+import { AuthRequest } from '../types'
+
 import parseRefreshToken from '../middlewares/parseRefreshToken'
-// import parseRefreshToken from '../middlewares/parseRefreshToken'
+import { UserService } from '../services/UserServices'
+import { AuthController } from '../controller/AuthController'
+import loginValidator from '../validator/loginValidator'
+import registerValidator from '../validator/registerValidator'
+import validateRefreshToken from '../middlewares/validateRefreshToken'
 
-const authRouter = express.Router()
-
-// typeorm
+const router = express.Router()
 const userRepository = AppDataSource.getRepository(User)
-
-// instance of classes
 const userService = new UserService(userRepository)
-
-// dependency injection
 const refreshTokenRepository = AppDataSource.getRepository(RefreshToken)
-
 const tokenService = new TokenService(refreshTokenRepository)
 const credentialService = new CredentialService()
-// dependency injection
 const authController = new AuthController(
     userService,
     logger,
@@ -37,41 +35,41 @@ const authController = new AuthController(
     credentialService,
 )
 
-authRouter.post(
-    '/register',
-    registerValidator,
-    (req: RegisterUserRequest, res: Response, next: NextFunction) =>
-        authController.register(req, res, next),
-)
+router.post('/register', registerValidator, (async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
+    await authController.register(req, res, next)
+}) as RequestHandler)
 
-authRouter.post(
+router.post(
     '/login',
     loginValidator,
-    async (req: Request, res: Response, next: NextFunction) => {
-        await authController.login(req, res, next)
-        console.log('Hello, World!')
-    },
+    (req: Request, res: Response, next: NextFunction) =>
+        authController.login(req, res, next),
 )
 
-authRouter.get('/self', authenticate, (req: Request, res: Response) =>
-    authController.self(req as AuthRequest, res),
+router.get(
+    '/self',
+    authenticate as RequestHandler,
+    (req: Request, res: Response) =>
+        authController.self(req as AuthRequest, res),
 )
 
-authRouter.post(
+router.post(
     '/refresh',
-    validateRefreshToken,
+    validateRefreshToken as RequestHandler,
     (req: Request, res: Response, next: NextFunction) =>
         authController.refresh(req as AuthRequest, res, next),
 )
 
-authRouter.post(
+router.post(
     '/logout',
-    authenticate,
-    parseRefreshToken,
-    (req: Request, res: Response, next: NextFunction) => {
-        console.log('AUTHTS LOGOUT:-', req.headers)
-        void authController.logout(req as AuthRequest, res, next)
-    },
+    authenticate as RequestHandler,
+    parseRefreshToken as RequestHandler,
+    (req: Request, res: Response, next: NextFunction) =>
+        authController.logout(req as AuthRequest, res, next),
 )
 
-export default authRouter
+export default router
