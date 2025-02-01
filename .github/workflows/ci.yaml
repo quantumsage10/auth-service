@@ -18,7 +18,7 @@ jobs:
             - name: Run eslint
               run: npm run lint
             - name: Test Database Connection
-              run: psql -h db.ydurfngddxkhpgbfpveq.supabase.co -p 5432 -d postgres -U postgres
+              run: PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }} psql -h db.ydurfngddxkhpgbfpveq.supabase.co -p 5432 -d postgres -U postgres -c "SELECT NOW();"
             - name: Test and coverage
               run: npm run test
               env:
