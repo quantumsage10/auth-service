@@ -457,3 +457,11 @@ git branch
 - npm i cors
 - to talk to another server
 - allow request from another server
+
+### GITHUB ACTIONS
+
+- FAILED IN SUPABASE SETUP IN GITHUB SECRETS
+
+### SONAR PROJECT PROPERTIES
+
+- Click on specific project & then Information Icon at the botttom
