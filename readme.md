@@ -465,3 +465,5 @@ git branch
 ### SONAR PROJECT PROPERTIES
 
 - Click on specific project & then Information Icon at the botttom
+- turn off Automatic Sonar ananalysis from Sonar Cloud
+- if Quality gate failed
