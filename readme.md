@@ -486,3 +486,8 @@ git push --set-upstream origin feature1
 git branch -r
 git pull origin feature1
 ```
+
+### SUPABASE IP CONNECTION ERROR
+
+- Supabase migrates  IPv4 to IPV6 but others don't
+- use supabase alternative config - session pooler etc.
