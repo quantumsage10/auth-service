@@ -467,3 +467,22 @@ git branch
 - Click on specific project & then Information Icon at the botttom
 - turn off Automatic Sonar ananalysis from Sonar Cloud
 - if Quality gate failed
+
+### Github Branch Protection
+
+- Click the specific repository - then Branches
+
+### Github Pull request
+
+- create second branch
+- create pull request from that branch
+
+### Github Branch Syncing Local & Remote
+
+```bash
+git checkout -b feature1
+git branch --set-upstream-to=origin/feature1 feature1
+git push --set-upstream origin feature1
+git branch -r
+git pull origin feature1
+```
