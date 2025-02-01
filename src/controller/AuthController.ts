@@ -11,10 +11,10 @@ import { Roles } from '../constants'
 
 export class AuthController {
     constructor(
-        private userService: UserService,
-        private logger: Logger,
-        private tokenService: TokenService,
-        private credentialService: CredentialService,
+        private readonly userService: UserService,
+        private readonly logger: Logger,
+        private readonly tokenService: TokenService,
+        private readonly credentialService: CredentialService,
     ) {}
 
     async register(
@@ -24,7 +24,6 @@ export class AuthController {
     ) {
         const result = validationResult(req)
         if (!result.isEmpty()) {
-            //    return res.send(`Hello, ${req.query.person}`)
             res.status(400).json({ errors: result.array() })
         }
 
