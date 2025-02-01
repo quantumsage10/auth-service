@@ -42,8 +42,6 @@ Content-Type: application/json
 ### then logout
 POST http://localhost:5501/auth/logout
 
-
-
 ### register tenants
 POST http://localhost:5501/tenants
 Content-Type: application/json
@@ -53,21 +51,19 @@ Content-Type: application/json
   "address": "CANADA"
 }
 
-
 ### register users with tenant id
 
 POST http://localhost:5501/users
 Content-Type: application/json
 
 {
-    "firstName": "john",
+    "firstName": "zane",
     "lastName": "p",
-    "email": "johndoe@mern.space",
+    "email": "zanedoe@mern.space",
     "password": "password",
     "role": "customer",
     "tenantId": 3
 }
-
 
 ### get users
 GET http://localhost:5501/users
