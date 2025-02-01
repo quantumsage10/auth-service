@@ -179,13 +179,9 @@ export class AuthController {
 
     async self(req: AuthRequest, res: Response) {
         console.log('AUTH:', req.auth)
-        // token req.auth.sub
 
         const user = await this.userService.findById(Number(req.auth.sub))
 
-        // console.log("Decoded sub:", Number(req.auth.sub));
-
-        // console.log("USER SELF:-",user)
         res.json({ ...user, password: undefined })
     }
 
