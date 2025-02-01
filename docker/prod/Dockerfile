@@ -32,7 +32,7 @@ RUN npm ci --ignore-scripts --omit=dev
 COPY --from=builder /app/dist ./
 
 # Expose port 5500 to allow external access to the application
-EXPOSE 5500
+EXPOSE 5501
 
 # Specify the command to start the application
 CMD ["node", "src/server.js"]
