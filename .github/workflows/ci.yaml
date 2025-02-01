@@ -17,6 +17,8 @@ jobs:
               run: npm ci
             - name: Run eslint
               run: npm run lint
+            - name: Test Database Connection
+              run: psql -h db.ydurfngddxkhpgbfpveq.supabase.co -p 5432 -d postgres -U postgres
             - name: Test and coverage
               run: npm run test
               env:
