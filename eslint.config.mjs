@@ -20,10 +20,10 @@ export default tseslint.config(
             'src/migration/1736524240857-migration.ts',
             "coverage", 
             "node_modules",
-            "dist"
+            "dist",
+            ".github"
         ],
     },
-    
     {
         languageOptions: {
             parserOptions: {
