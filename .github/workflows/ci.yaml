@@ -19,9 +19,9 @@ jobs:
               run: npm run lint
             - name: Test DNS Resolution
               run: nslookup db.ydurfngddxkhpgbfpveq.supabase.co
-            - name: Test Database Connection (Transaction Pooler)
+            - name: Test Database Connection (Session Pooler)
               run: |
-                PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }} psql "sslmode=require host=aws-0-ap-southeast-1.pooler.supabase.com port=6543 dbname=postgres user=postgres.ydurfngddxkhpgbfpveq" -c "SELECT NOW();"
+                PGPASSWORD=${{ secrets.TEST_DB_PASSWORD }} psql "sslmode=require host=aws-0-ap-southeast-1.pooler.supabase.com port=5432 dbname=postgres user=postgres.ydurfngddxkhpgbfpveq" -c "SELECT NOW();"
             
             
             
