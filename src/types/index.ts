@@ -8,7 +8,6 @@ export interface UserData {
     role: string
     tenantId?: number
 }
-
 export interface RegisterUserRequest extends Request {
     body: UserData
 }
@@ -16,9 +15,12 @@ export interface RegisterUserRequest extends Request {
 export interface AuthRequest extends Request {
     auth: {
         sub: string
-        // role: number
         role: string
         id?: string
+        tenant: string
+        firstName: string
+        lastName: string
+        email: string
     }
 }
 
@@ -48,6 +50,8 @@ export interface LimitedUserData {
     firstName: string
     lastName: string
     role: string
+    email: string
+    tenantId: number
 }
 
 export interface UpdateUserRequest extends Request {
@@ -59,4 +63,10 @@ export interface UserQueryParams {
     currentPage: number
     q: string
     role: string
+}
+
+export interface TenantQueryParams {
+    q: string
+    perPage: number
+    currentPage: number
 }
