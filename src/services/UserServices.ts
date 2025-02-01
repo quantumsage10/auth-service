@@ -108,12 +108,12 @@ export class UserService {
                 role,
             })
         } catch (err) {
+            console.log(err)
             const error = createHttpError(
                 500,
                 'Failed to update the user in the database',
             )
             throw error
-            console.log(err)
         }
     }
 

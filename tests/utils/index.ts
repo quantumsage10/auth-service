@@ -20,6 +20,7 @@ export const isJwt = (token: string | null): boolean => {
         })
         return true
     } catch (err) {
+        console.error('An error occurred:', err)
         return false
     }
 }
