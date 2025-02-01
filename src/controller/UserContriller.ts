@@ -42,7 +42,7 @@ export class UserController {
         // Validation
         const result = validationResult(req)
         if (!result.isEmpty()) {
-            return res.status(400).json({ errors: result.array() })
+            res.status(400).json({ errors: result.array() })
         }
 
         const { firstName, lastName, role, email, tenantId } = req.body
