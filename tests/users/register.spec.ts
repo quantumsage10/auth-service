@@ -88,27 +88,27 @@ describe('POST /auth/register', () => {
             expect(users[0].email).toBe(userData.email)
         })
 
-        // it('should assign a customer role', async () => {
-        //     // Arrange
-        //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: 'runi@mern.space',
-        //         password: 'secret',
-        //     }
+        it('should assign a customer role', async () => {
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: 'runi@mern.space',
+                password: 'secret',
+            }
 
-        //     // Act
-        //     await request(app).post('/auth/register').send(userData)
+            // Act
+            await request(app).post('/auth/register').send(userData)
 
-        //     // Assert
-        //     const userRepository = connection.getRepository(User)
-        //     const users = await userRepository.find()
+            // Assert
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
 
-        //     console.log("USERS MAIN:", users)
+            console.log('USERS MAIN:', users)
 
-        //     expect(users[0]).toHaveProperty('role')
-        //     expect(users[0].role).toBe(Roles.CUSTOMER)
-        // })
+            expect(users[0]).toHaveProperty('role')
+            expect(users[0].role).toBe(Roles.CUSTOMER)
+        })
 
         it('should store the hashed password in the database', async () => {
             // Arrange
@@ -237,7 +237,7 @@ describe('POST /auth/register', () => {
         it('should return 400 status code if email validation fails or email fields missing', async () => {
             // Arrange
             const userData = {
-                firstName: 'runi',
+                firstName: 'panda',
                 lastName: 'p',
                 email: '',
                 password: 'secret',
