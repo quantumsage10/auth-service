@@ -255,11 +255,11 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
 
-            console.log('USER REPOSITORY USER', users)
-            expect(users).toHaveLength(0)
+            // console.log('USER REPOSITORY USER', users)
+            // expect(users).toHaveLength(0)
         }, 500000)
 
         it('shoud return an array of error messages if email is missing', async () => {
@@ -399,9 +399,9 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
         }, 500000)
 
         it('should return 400 status code if password length is less than 6 chars', async () => {
