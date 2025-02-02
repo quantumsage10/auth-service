@@ -42,6 +42,7 @@ describe('POST /tenants', () => {
                 name: 'Tenant name',
                 address: 'Tenant address',
             }
+
             const response = await request(app)
                 .post('/tenants')
                 .set('Cookie', [`accessToken=${adminToken}`])

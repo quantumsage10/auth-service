@@ -1,4 +1,9 @@
-import express, { NextFunction, RequestHandler, Response } from 'express'
+import express, {
+    NextFunction,
+    Request,
+    RequestHandler,
+    Response,
+} from 'express'
 import { TenantService } from '../services/TenantService'
 import { AppDataSource } from '../config/data-source'
 import { Tenant } from '../entity/Tenant'
@@ -9,6 +14,7 @@ import { Roles } from '../constants'
 import { CreateTenantRequest } from '../types'
 import { TenantController } from '../controller/TenantController'
 import tenantValidator from '../validator/tenant-validator'
+import listUsersValidators from '../validator/list-users-validators'
 
 const router = express.Router()
 
@@ -33,13 +39,21 @@ router.patch(
     (req: CreateTenantRequest, res: Response, next: NextFunction) =>
         tenantController.update(req, res, next),
 )
-router.get('/', (req, res, next) => tenantController.getAll(req, res, next))
+
+router.get(
+    '/',
+    listUsersValidators,
+    (req: Request, res: Response, next: NextFunction) =>
+        tenantController.getAll(req, res, next),
+)
+
 router.get(
     '/:id',
     authenticate as RequestHandler,
     canAccess([Roles.ADMIN]),
     (req, res, next) => tenantController.getOne(req, res, next),
 )
+
 router.delete(
     '/:id',
     authenticate as RequestHandler,

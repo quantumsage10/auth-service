@@ -88,16 +88,17 @@ export class AuthController {
 
     async login(req: RegisterUserRequest, res: Response, next: NextFunction) {
         // raw details from request body
-        const { email, password } = req.body
 
         const result = validationResult(req)
+
+        const { email, password } = req.body
+
         if (!result.isEmpty()) {
             res.status(400).json({ errors: result.array() })
         }
 
         this.logger.debug('New Request to login a user', {
             email,
-            password: '*******',
         })
 
         // Check if useranme(email) exists in database
@@ -136,6 +137,10 @@ export class AuthController {
             const payload: JwtPayload = {
                 sub: String(user.id),
                 role: user.role,
+                tenant: user.tenant ? String(user.tenant.id) : '',
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
             }
 
             // generate Tokens
@@ -170,7 +175,8 @@ export class AuthController {
 
             // Return the response (id)
 
-            res.json({ sub: user.id })
+            this.logger.info('User has been logged in', { id: user.id })
+            res.json({ id: user.id })
         } catch (error) {
             next(error)
             return

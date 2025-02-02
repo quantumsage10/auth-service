@@ -25,11 +25,12 @@ describe('POST /auth/logout', () => {
 
     describe('Given a logged-in user', () => {
         // it('should logout the user & return a 200 status', async () => {
+
         //     // Arrange: create a user in the DB
         //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: 'runi@mern.space',
+        //         firstName: 'jane',
+        //         lastName: 'doe',
+        //         email: 'jannee@mern.space',
         //         password: 'secret',
         //     }
 
@@ -49,6 +50,7 @@ describe('POST /auth/logout', () => {
         //     const loginResponse = await request(app)
         //         .post('/auth/login')
         //         .send({ email: userData.email, password: userData.password })
+        //         .expect(200)
 
         //     const cookies =
         //         (loginResponse.headers as unknown as Headers)['set-cookie'] ||
@@ -56,27 +58,6 @@ describe('POST /auth/logout', () => {
 
         //     let accessToken: string | null = null
         //     let refreshToken : string | null = null
-
-        //     // cookies extraction
-        //     // cookies.forEach((cookie) => {
-        //     //     if (cookie.startsWith('accessToken=')) {
-        //     //         accessToken = cookie.split(';')[0] + ';'
-        //     //     }
-
-        //     //     if (cookie.startsWith('refreshToken=')) {
-        //     //         refreshToken = cookie.split(';')[0]
-        //     //     }
-        //     // })
-
-        //     // console.log('COOKIES', cookies)
-        //     // console.log('ACCESS TOKEN:', accessToken)
-        //     // console.log('REFRESH TOKEN', refreshToken)
-
-        //     // const cookiesnew =
-        //     //     accessToken && refreshToken
-        //     //         ? accessToken + ' ' + refreshToken
-        //     //         : ''
-        //     // console.log('COOKIES NEW:', cookiesnew)
 
         //     cookies.forEach((cookie) => {
         //         if (cookie.startsWith('accessToken=')) {
@@ -95,12 +76,12 @@ describe('POST /auth/logout', () => {
         //             `accessToken=${accessToken}`,
         //             `refreshToken=${refreshToken}`,
         //         ])
-        //         .send()
 
         //     expect(isJwt(accessToken)).toBeTruthy()
-        //     // Assert: check if logout was successful
-        //     expect(logoutResponse.statusCode).toBe(200) // Expect 200 OK for successful logout
-        // }) // You can adjust this timeout if needed
+        //     expect(isJwt(refreshToken)).toBeTruthy()
+
+        //     expect(logoutResponse.statusCode).toBe(404)
+        // })
 
         it('should return 401 if no valid cookies are provided', async () => {
             // Act: make a logout request with no cookies

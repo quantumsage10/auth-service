@@ -9,7 +9,7 @@
         "format:check": "prettier . --check",
         "lint:fix": "eslint . --fix",
         "lint": "eslint .",
-        "test": "jest --no-cache --coverage --all --runInBand",
+         "test": "jest --no-cache --coverage --all --runInBand",
         "test:watch": "jest --watch --runInBand",
         "prepare": "husky",
         "start": "ts-node src/index.ts",
