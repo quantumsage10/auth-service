@@ -8,7 +8,6 @@ import { isJwt } from '../utils'
 import { RefreshToken } from '../../src/entity/RefreshToken'
 
 describe('POST /auth/register', () => {
-    // database connection
     let connection: DataSource
 
     beforeAll(async () => {
@@ -16,7 +15,6 @@ describe('POST /auth/register', () => {
     })
 
     beforeEach(async () => {
-        // Database truncate
         await connection.dropDatabase()
         await connection.synchronize()
         // await truncateTables(connection)
@@ -28,55 +26,44 @@ describe('POST /auth/register', () => {
 
     describe('Given all fields', () => {
         it('should return the 201 status code', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
                 email: 'runi@mern.space',
                 password: 'secret',
             }
-            // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
-            // console.log('RESPONSE:', response)
-
-            // Assert
             expect(response.statusCode).toBe(201)
         })
 
         it('should return valid json response', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
                 email: 'runi@mern.space',
                 password: 'secret',
             }
-            // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
-            // Assert application/json utf-8
             expect(
                 (response.headers as Record<string, string>)['content-type'],
             ).toEqual(expect.stringContaining('json'))
         })
 
         it('should persist the user in the database', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
                 email: 'runi@mern.space',
                 password: 'secret',
             }
-            // Act
             await request(app).post('/auth/register').send(userData)
 
-            // Assert
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
@@ -89,7 +76,6 @@ describe('POST /auth/register', () => {
         })
 
         it('should assign a customer role', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
@@ -97,10 +83,8 @@ describe('POST /auth/register', () => {
                 password: 'secret',
             }
 
-            // Act
             await request(app).post('/auth/register').send(userData)
 
-            // Assert
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
@@ -111,7 +95,6 @@ describe('POST /auth/register', () => {
         })
 
         it('should store the hashed password in the database', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
@@ -119,10 +102,8 @@ describe('POST /auth/register', () => {
                 password: 'secret',
             }
 
-            // Act
             await request(app).post('/auth/register').send(userData)
 
-            // Assert
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
@@ -133,7 +114,6 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if email is already exists', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
@@ -143,12 +123,10 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             await userRepository.save({ ...userData, role: Roles.CUSTOMER })
 
-            // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
-            // Assert
             const expectedStatusCode = 400
             const users = await userRepository.find()
             expect(response.statusCode).toBe(expectedStatusCode)
@@ -156,7 +134,6 @@ describe('POST /auth/register', () => {
         })
 
         it('should return the access token and refresh token inside a cookie', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
@@ -164,12 +141,9 @@ describe('POST /auth/register', () => {
                 password: 'secret',
             }
 
-            // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
-
-            // Assert
 
             let accessToken: string | null = null
             let refreshToken: string | null = null
@@ -202,7 +176,6 @@ describe('POST /auth/register', () => {
         })
 
         it('should store the refresh token in the database', async () => {
-            // Arrange
             const userData = {
                 firstName: 'runi',
                 lastName: 'p',
@@ -210,26 +183,24 @@ describe('POST /auth/register', () => {
                 password: 'secret',
             }
 
-            // Act
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
 
-            // Assert
+            console.log('REFRESH TOKEN RESPONSE BODY ID:', response.body)
 
             const refreshTokenRepo = connection.getRepository(RefreshToken)
-            const refreshTokens = await refreshTokenRepo.find()
-            expect(refreshTokens).toHaveLength(1)
 
-            // better check
-            // const tokens = await refreshTokenRepo
-            //     .createQueryBuilder('refreshToken')
-            //     .where('refreshToken.userId = :userId', {
-            //         userId: (response.body as Record<string, string>).id,
-            //     })
-            //     .getMany()
+            // const refreshTokens = await refreshTokenRepo.find()
 
-            // expect(tokens).toHaveLength(1)
+            const tokens = await refreshTokenRepo
+                .createQueryBuilder('refreshTokens')
+                .where('refreshTokens.userId = :userId', {
+                    userId: (response.body as Record<string, string>).sub,
+                })
+                .getMany()
+
+            expect(tokens).toHaveLength(1)
         }, 500000)
     })
 

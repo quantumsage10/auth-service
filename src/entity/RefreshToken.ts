@@ -8,8 +8,6 @@ import {
 } from 'typeorm'
 import { User } from './User'
 
-// db schema for refresh token
-
 @Entity({ name: 'refreshTokens' })
 export class RefreshToken {
     @PrimaryGeneratedColumn()
@@ -20,7 +18,6 @@ export class RefreshToken {
 
     @ManyToOne(() => User)
     user: User
-
     // userId
 
     @UpdateDateColumn()
