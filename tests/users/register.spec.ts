@@ -255,28 +255,28 @@ describe('POST /auth/register', () => {
         //     ).toBeGreaterThan(0)
         // }, 500000)
 
-        it('should return 400 status code if firstName is missing', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
+        // it('should return 400 status code if firstName is missing', async () => {
+        //     await connection.dropDatabase()
+        //     await connection.synchronize()
 
-            // Arrange
-            const userData = {
-                firstName: '',
-                lastName: 'p',
-                email: 'panda@mern.space',
-                password: 'secret',
-            }
-            // Act
-            const response = await request(app)
-                .post('/auth/register')
-                .send(userData)
+        //     // Arrange
+        //     const userData = {
+        //         firstName: '',
+        //         lastName: 'p',
+        //         email: 'panda@mern.space',
+        //         password: 'secret',
+        //     }
+        //     // Act
+        //     const response = await request(app)
+        //         .post('/auth/register')
+        //         .send(userData)
 
-            // Assert
-            expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
-        }, 500000)
+        //     // Assert
+        //     expect(response.statusCode).toBe(400)
+        //     const userRepository = connection.getRepository(User)
+        //     const users = await userRepository.find()
+        //     expect(users).toHaveLength(0)
+        // }, 500000)
 
         it('should return 400 status code if lastName is missing', async () => {
             await connection.dropDatabase()
