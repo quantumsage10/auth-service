@@ -237,8 +237,8 @@ describe('POST /auth/register', () => {
         it('should return 400 status code if email validation fails or email fields missing', async () => {
             // Arrange
             const userData = {
-                firstName: 'panda',
-                lastName: 'p',
+                firstName: 'jane',
+                lastName: 'doe',
                 email: '',
                 password: 'secret',
             }
@@ -248,12 +248,10 @@ describe('POST /auth/register', () => {
                 .post('/auth/register')
                 .send(userData)
 
-            // Assert
-            // email validation fails
-            expect(response.statusCode).toBe(400)
-            // console.log(response.body)
+            console.log('NO EMAIL GIVEN:-', response.body)
 
-            // checking in database, email doesn't store in database if validation fails
+            // Assert
+            expect(response.statusCode).toBe(400)
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
