@@ -24,64 +24,63 @@ describe('POST /auth/logout', () => {
     })
 
     describe('Given a logged-in user', () => {
-        // it('should logout the user & return a 200 status', async () => {
+        it('should logout the user & return a 200 status', async () => {
+            // Arrange: create a user in the DB
+            const userData = {
+                firstName: 'jane',
+                lastName: 'doe',
+                email: 'jannee@mern.space',
+                password: 'secret',
+            }
 
-        //     // Arrange: create a user in the DB
-        //     const userData = {
-        //         firstName: 'jane',
-        //         lastName: 'doe',
-        //         email: 'jannee@mern.space',
-        //         password: 'secret',
-        //     }
+            const hashedPassword = await bcrypt.hash(userData.password, 10)
+            const userRepository = connection.getRepository(User)
+            await userRepository.save({
+                ...userData,
+                password: hashedPassword,
+                role: Roles.CUSTOMER,
+            })
 
-        //     const hashedPassword = await bcrypt.hash(userData.password, 10)
-        //     const userRepository = connection.getRepository(User)
-        //     await userRepository.save({
-        //         ...userData,
-        //         password: hashedPassword,
-        //         role: Roles.CUSTOMER,
-        //     })
+            interface Headers {
+                ['set-cookie']: string[]
+            }
 
-        //     interface Headers {
-        //         ['set-cookie']: string[]
-        //     }
+            // Act: login the user
+            const loginResponse = await request(app)
+                .post('/auth/login')
+                .send({ email: userData.email, password: userData.password })
+                .expect(200)
 
-        //     // Act: login the user
-        //     const loginResponse = await request(app)
-        //         .post('/auth/login')
-        //         .send({ email: userData.email, password: userData.password })
-        //         .expect(200)
+            const cookies =
+                (loginResponse.headers as unknown as Headers)['set-cookie'] ||
+                []
 
-        //     const cookies =
-        //         (loginResponse.headers as unknown as Headers)['set-cookie'] ||
-        //         []
+            let accessToken: string | null = null
+            let refreshToken: string | null = null
 
-        //     let accessToken: string | null = null
-        //     let refreshToken : string | null = null
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith('accessToken=')) {
+                    accessToken = cookie.split(';')[0].split('=')[1]
+                }
 
-        //     cookies.forEach((cookie) => {
-        //         if (cookie.startsWith('accessToken=')) {
-        //             accessToken = cookie.split(';')[0].split('=')[1]
-        //         }
+                if (cookie.startsWith('refreshToken=')) {
+                    refreshToken = cookie.split(';')[0].split('=')[1]
+                }
+            })
 
-        //         if (cookie.startsWith('refreshToken=')) {
-        //             refreshToken = cookie.split(';')[0].split('=')[1]
-        //         }
-        //     })
+            // Act: make a logout request with the cookies
+            const logoutResponse = await request(app)
+                .post('/auth/logout')
+                .set('Cookie', [
+                    `accessToken=${accessToken}`,
+                    `refreshToken=${refreshToken}`,
+                ])
 
-        //     // Act: make a logout request with the cookies
-        //     const logoutResponse = await request(app)
-        //         .post('/auth/logout')
-        //         .set('Cookie', [
-        //             `accessToken=${accessToken}`,
-        //             `refreshToken=${refreshToken}`,
-        //         ])
+            expect(isJwt(accessToken)).toBeTruthy()
+            expect(isJwt(refreshToken)).toBeTruthy()
 
-        //     expect(isJwt(accessToken)).toBeTruthy()
-        //     expect(isJwt(refreshToken)).toBeTruthy()
-
-        //     expect(logoutResponse.statusCode).toBe(404)
-        // })
+            expect(logoutResponse.statusCode).toBe(404)
+        })
 
         it('should return 401 if no valid cookies are provided', async () => {
             // Act: make a logout request with no cookies
