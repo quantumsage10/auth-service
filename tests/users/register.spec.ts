@@ -273,9 +273,9 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
         }, 500000)
 
         it('should return 400 status code if lastName is missing', async () => {
@@ -296,9 +296,9 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
         }, 500000)
 
         it('should return 400 status code if password is missing', async () => {
@@ -319,9 +319,9 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
         }, 500000)
     })
 

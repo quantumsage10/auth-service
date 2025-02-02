@@ -36,7 +36,6 @@ export class TokenService {
     }
 
     generateRefreshToken(payload: JwtPayload) {
-        // console.log(payload)
         const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
             algorithm: 'HS256',
             expiresIn: '1yr',

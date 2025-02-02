@@ -23,8 +23,3 @@ AppDataSource.initialize()
         )
     })
     .catch((error) => console.log(error))
-
-// health-check
-// first schema
-// insert record
-// select record
