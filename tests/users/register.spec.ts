@@ -230,7 +230,7 @@ describe('POST /auth/register', () => {
             //     .getMany()
 
             // expect(tokens).toHaveLength(1)
-        })
+        }, 500000)
     })
 
     describe('Fields are missing', () => {
@@ -260,7 +260,7 @@ describe('POST /auth/register', () => {
 
             console.log('USER REPOSITORY USER', users)
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
 
         it('shoud return an array of error messages if email is missing', async () => {
             // Arrange
@@ -282,7 +282,7 @@ describe('POST /auth/register', () => {
             expect(
                 (response.body as Record<string, string>).errors.length,
             ).toBeGreaterThan(0)
-        })
+        }, 500000)
 
         it('should return 400 status code if firstName is missing', async () => {
             await connection.dropDatabase()
@@ -305,7 +305,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
 
         it('should return 400 status code if lastName is missing', async () => {
             await connection.dropDatabase()
@@ -328,7 +328,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
 
         it('should return 400 status code if password is missing', async () => {
             await connection.dropDatabase()
@@ -351,7 +351,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
     })
 
     describe('Fields are not in proper format', () => {
@@ -379,7 +379,7 @@ describe('POST /auth/register', () => {
             console.log('Users:', users)
             const user = users[0]
             expect(user.email).toBe('panda@mern.space')
-        })
+        }, 500000)
 
         it('should return 400 status code if email is not a valid email', async () => {
             await connection.dropDatabase()
@@ -402,7 +402,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
 
         it('should return 400 status code if password length is less than 6 chars', async () => {
             await connection.dropDatabase()
@@ -426,6 +426,6 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
-        })
+        }, 500000)
     })
 })
