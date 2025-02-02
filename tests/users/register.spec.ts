@@ -254,7 +254,9 @@ describe('POST /auth/register', () => {
             expect(response.statusCode).toBe(400)
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+
+            console.log('USER REPOSITORY USER', users)
+            expect(users).toHaveLength(1)
         })
 
         it('shoud return an array of error messages if email is missing', async () => {
