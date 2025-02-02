@@ -235,6 +235,9 @@ describe('POST /auth/register', () => {
 
     describe('Fields are missing', () => {
         it('should return 400 status code if email validation fails or email fields missing', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'jane',
@@ -256,7 +259,7 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
 
             console.log('USER REPOSITORY USER', users)
-            expect(users).toHaveLength(1)
+            expect(users).toHaveLength(0)
         })
 
         it('shoud return an array of error messages if email is missing', async () => {
@@ -282,6 +285,9 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if firstName is missing', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: '',
@@ -302,6 +308,9 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if lastName is missing', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'runi',
@@ -322,6 +331,9 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if password is missing', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'runi',
@@ -344,6 +356,9 @@ describe('POST /auth/register', () => {
 
     describe('Fields are not in proper format', () => {
         it('should trim the email field', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'panda',
@@ -367,6 +382,9 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if email is not a valid email', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'runi',
@@ -387,6 +405,9 @@ describe('POST /auth/register', () => {
         })
 
         it('should return 400 status code if password length is less than 6 chars', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
+
             // Arrange
             const userData = {
                 firstName: 'runi',
