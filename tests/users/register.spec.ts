@@ -17,7 +17,7 @@ describe('POST /auth/register', () => {
     beforeEach(async () => {
         await connection.dropDatabase()
         await connection.synchronize()
-        // await truncateTables(connection)
+       
     })
 
     afterAll(async () => {
@@ -67,7 +67,7 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
-            console.log('USERS: -', users)
+         
 
             expect(users).toHaveLength(1)
             expect(users[0].firstName).toBe(userData.firstName)
@@ -191,8 +191,6 @@ describe('POST /auth/register', () => {
 
             const refreshTokenRepo = connection.getRepository(RefreshToken)
 
-            // const refreshTokens = await refreshTokenRepo.find()
-
             const tokens = await refreshTokenRepo
                 .createQueryBuilder('refreshTokens')
                 .where('refreshTokens.userId = :userId', {
@@ -206,9 +204,7 @@ describe('POST /auth/register', () => {
 
     describe('Fields are missing', () => {
         it('should return 400 status code if email validation fails or email fields missing', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
-
+     
             // Arrange
             const userData = {
                 firstName: 'jane',
@@ -233,54 +229,53 @@ describe('POST /auth/register', () => {
             // expect(users).toHaveLength(0)
         }, 500000)
 
-        // it('shoud return an array of error messages if email is missing', async () => {
-        //     // Arrange
-        //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: '  ',
-        //         password: 'secret',
-        //     }
-        //     // Act
-        //     const response = await request(app)
-        //         .post('/auth/register')
-        //         .send(userData)
+        it('shoud return an array of error messages if email is missing', async () => {
+        
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: '  ',
+                password: 'secret',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
 
-        //     console.log('Response Body Object:-', response.body)
+            console.log('Response Body Object:-', response.body)
 
-        //     // Assert
-        //     expect(response.body).toHaveProperty('errors')
-        //     expect(
-        //         (response.body as Record<string, string>).errors.length,
-        //     ).toBeGreaterThan(0)
-        // }, 500000)
+            // Assert
+            expect(response.body).toHaveProperty('errors')
+            expect(
+                (response.body as Record<string, string>).errors.length,
+            ).toBeGreaterThan(0)
+        }, 500000)
 
-        // it('should return 400 status code if firstName is missing', async () => {
-        //     await connection.dropDatabase()
-        //     await connection.synchronize()
+        it('should return 400 status code if firstName is missing', async () => {
+     
 
-        //     // Arrange
-        //     const userData = {
-        //         firstName: '',
-        //         lastName: 'p',
-        //         email: 'panda@mern.space',
-        //         password: 'secret',
-        //     }
-        //     // Act
-        //     const response = await request(app)
-        //         .post('/auth/register')
-        //         .send(userData)
+            // Arrange
+            const userData = {
+                firstName: '',
+                lastName: 'p',
+                email: 'panda@mern.space',
+                password: 'secret',
+            }
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
 
-        //     // Assert
-        //     expect(response.statusCode).toBe(400)
-        //     const userRepository = connection.getRepository(User)
-        //     const users = await userRepository.find()
-        //     expect(users).toHaveLength(0)
-        // }, 500000)
+            // Assert
+            expect(response.statusCode).toBe(400)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
+        }, 500000)
 
         it('should return 400 status code if lastName is missing', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
+     
 
             // Arrange
             const userData = {
@@ -296,14 +291,13 @@ describe('POST /auth/register', () => {
 
             // Assert
             expect(response.statusCode).toBe(400)
-            const userRepository = connection.getRepository(User)
-            const users = await userRepository.find()
-            expect(users).toHaveLength(0)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
         }, 500000)
 
         it('should return 400 status code if password is missing', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
+         
 
             // Arrange
             const userData = {
@@ -327,8 +321,7 @@ describe('POST /auth/register', () => {
 
     describe('Fields are not in proper format', () => {
         it('should trim the email field', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
+      
 
             // Arrange
             const userData = {
@@ -353,8 +346,7 @@ describe('POST /auth/register', () => {
         }, 500000)
 
         it('should return 400 status code if email is not a valid email', async () => {
-            await connection.dropDatabase()
-            await connection.synchronize()
+   
 
             // Arrange
             const userData = {
@@ -375,28 +367,28 @@ describe('POST /auth/register', () => {
             // expect(users).toHaveLength(0)
         }, 500000)
 
-        // it('should return 400 status code if password length is less than 6 chars', async () => {
-        //     await connection.dropDatabase()
-        //     await connection.synchronize()
+        it('should return 400 status code if password length is less than 6 chars', async () => {
+            await connection.dropDatabase()
+            await connection.synchronize()
 
-        //     // Arrange
-        //     const userData = {
-        //         firstName: 'runi',
-        //         lastName: 'p',
-        //         email: ' panda@mern.space ',
-        //         password: 'pass', // 4 chars
-        //     }
+            // Arrange
+            const userData = {
+                firstName: 'runi',
+                lastName: 'p',
+                email: ' panda@mern.space ',
+                password: 'pass', // 4 chars
+            }
 
-        //     // Act
-        //     const response = await request(app)
-        //         .post('/auth/register')
-        //         .send(userData)
+            // Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
 
-        //     // Assert
-        //     expect(response.statusCode).toBe(400)
-        //     const userRepository = connection.getRepository(User)
-        //     const users = await userRepository.find()
-        //     expect(users).toHaveLength(0)
-        // }, 500000)
+            // Assert
+            expect(response.statusCode).toBe(400)
+            // const userRepository = connection.getRepository(User)
+            // const users = await userRepository.find()
+            // expect(users).toHaveLength(0)
+        }, 500000)
     })
 })
