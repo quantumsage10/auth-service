@@ -560,9 +560,10 @@ npm install bcryptjs -D @types/bcryptjs
 DB_HOST=localhost
 DB_HOST=host.docker.internal
 
-# JWKS_URI="http://localhost:5501/.well-known/jwks.json"
-JWKS_URI="host.docker.internal:5501/.well-known/jwks.json"
+JWKS_URI="http://localhost:5501/.well-known/jwks.json"
+# JWKS_URI="host.docker.internal:5501/.well-known/jwks.json"
 ```
+> bit update jwks works with http get request - it depends 
 
 ### local server
 
@@ -582,4 +583,39 @@ JWKS_URI="host.docker.internal:5501/.well-known/jwks.json"
 # inside DockerFile
 # Ensure the public/.well-known directory is included in dist
 RUN mkdir -p dist/public/.well-known && cp -r public/.well-known dist/public/
+```
+
+
+### APP WORKS AFTER FEW FIXES 
+
+```bash
+# terminal
+
+docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEArnA9vWhqebrhqbhbhrebhheabe5LHoF76RUtguD+PtWcBof3
+FdeaNUDe25fxwhSOLaCK4CInDhgGbVJOvIFfQMUYo6IImNHoodlSETLeCNYLailR
+pzfGPvxut6GrUASTp7J5T69MAEo9IdFfZiVJ/GlghokaPFfdAXg+7LPbtlOG9O61
+VxRwydx/odgnR4DGNfzaI9POhqxm1stcgzF48yJo9s0c0+FYLFz/GPB4HeZy/KUh
+PlmpRc/iFIA0A9VMLVcsWS/TVYIAh9kGOAllJyT9YHtHBRAmJIzMuatwuWmK7Dfd
+R39tq/sPJZR+++2y0rQNOFJrmXd6oaqlsqzEFwIDAQABAoIBAETJJ99wAYHEhYD9
+u3Pi8DT182EiuPZ/ktAXtMmeVUOL0inVJb7sNPf466hmI0Qn/OTLINg/P21UVfx3
+72pwDZKp5gxokcFJTNW9r5numBWd6gRj5LnuyXL+8d3hl39HPr5rJ2Efu/WFUNPs
+DxVlcOZi21hR6hGPiCvTMeT/C426fIQGdtjTBTSo6PoycwJmrC/cFq85ArR4Slp/
+k3tbKtRHP+zn8F5p3wOnvr0X5+gYJXWtGWaLgwbezVbx57Xp4BE3uZVC4HRzprkC
+g9mDy8C9TgrN6HhlDuZrItSldqZ4DLjJYB/Xsk6QvwXQrAo4WVU2hvmDTTryDODo
+9hDSiqECgYEA7QHld8DSCe3JMu2dhtJgfmTsVjw8oaznmp0rEkMS9mzcOqU2rw4R
+stD/QV3UoOLuRjLdKpFw8nIvvyPw/Gnp4Eaj1IdeskJZUEOF5t40Wy65kx1WIWRJ
+lDgBAWD//mExH+KgQdUnjd6WvJn628mFrLbDYvT2gewzFmu1fD3wMNECgYEAvGrF
+Dx18srkG5BsWoF6urEwsVfKg+RFAi33eetwXl/n3FvLv+d6NyWtYzdbwKlJWS8ad
+lcdb3YuZ1Y6HDFVxmRnoFZu0uMB2fQHBFINzX5KOUORa+SrCtrM9WzuVNvgJUDa2
+g8Tr1A0d0NnNB/Yk/BQnx7GAM28p8bpVLkW/IGcCgYEAsf7Bmh1a4RAPEct4id+H
+joU3JVCZ7IYRboHo7g8nt6BsCTM5DWFQk234tdvFK4sijd/3T9fo7nwpNbDFdJwK
+hGAo/B0qVlAUCX6cmpV41p4RytW2cN+Djug8gQ+bUi0mGp814hs2WIq5xC0URGpl
+lR+xP6lfVJXSjF0Z8JQHxnECgYBfk1l6nV6P2kOgmg0UNHMue0VSI818CkBPgf3F
+HLfrI6UvQvRwL3CE56sYXxtcnH+h2JI/U+1JqHLUXYQrwXvqSbXsoBtATIDOUIF8
+wmFX7aO7bNqo4gP7YViSWtsKEy/GPLrAhLeLzUt+kbzrePSx2heDuIprjMweDoL/
+Aeo9qQKBgQDII9ePUSxShnpjs5L6HypA1L7q87UHQg3k4zWp6LKR5TlF8N4nqj2w
+qxBg9nh1o4OrT81EOsi9vpTAzeaAL84OVEyCp6rgOStceRHWCUEkXOzftzk/cFk+
+D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
+-----END RSA PRIVATE KEY-----" -e JWKS_URI="http://localhost:5501/.well-known/jwks.json" -p 5501:5501 -v $(pwd)/certs:/src/certs runipanda/auth-service:build-95
 ```
