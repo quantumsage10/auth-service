@@ -17,7 +17,7 @@ export class TokenService {
 
         try {
             privateKey = fs.readFileSync(
-                path.join(__dirname, '../../certs/public.pem'),
+                path.join(__dirname, '../certs/public.pem'),
             )
         } catch (err) {
             console.log(err)
