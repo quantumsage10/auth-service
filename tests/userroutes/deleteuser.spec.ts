@@ -68,5 +68,22 @@ describe('DELETE /users', () => {
 
             expect(users).toHaveLength(0)
         })
+
+        it('should return 500 if db connection interrrupted', async () => {
+            // Create tenant first
+
+            await connection.dropDatabase()
+
+            const adminToken = jwks.token({
+                sub: '1',
+                role: Roles.ADMIN,
+            })
+
+            const response = await request(app)
+                .delete('/users/1')
+                .set('Cookie', [`accessToken=${adminToken}`])
+
+            expect(response.statusCode).toBe(500)
+        })
     })
 })
