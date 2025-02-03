@@ -487,7 +487,43 @@ git branch -r
 git pull origin feature1
 ```
 
+# CI PIPELINE 
+
+> .github/workflows/ci.yml file prototcol/instructions
+
+### Pull Request PR in github
+
+- craete other git branch locally
+- code changes push to github
+- craete pull request to merge with main in github
+
+```bash
+# for syncing local & cloud
+git checkout main
+git pull
+```
+
 ### SUPABASE IP CONNECTION ERROR
 
 - Supabase migrates  IPv4 to IPV6 but others don't
 - use supabase alternative config - session pooler etc.
+
+### SONAR CLOUD ERROR CHECKING
+
+- must have above 80% code coverage tests
+- no errors in code
+
+### DOCKER-HUB IMAGE PUSH ERROR 
+
+```bash
+docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="..." -p 5501:5501 runipanda/auth-service:build-81 
+```
+
+- replace bcrypt with bcryptjs
+
+```bash
+npm uninstall bcrypt -D @types/bcrypt
+npm install bcryptjs -D @types/bcryptjs
+```
+
+> Command Pallate - Restart ESLint Server

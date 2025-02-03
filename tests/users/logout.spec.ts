@@ -4,7 +4,7 @@ import request from 'supertest'
 import app from '../../src/app'
 import { User } from '../../src/entity/User'
 import { Roles } from '../../src/constants'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { isJwt } from '../utils'
 
 describe('POST /auth/logout', () => {
