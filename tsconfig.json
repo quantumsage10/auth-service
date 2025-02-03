@@ -112,5 +112,6 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
     },
+    "inclue":["src", "public"],
    "exclude": ["**/*.spec.ts", "tests", "coverage", "node_modules"]
 }

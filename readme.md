@@ -516,11 +516,11 @@ git pull
 ### DOCKER-HUB IMAGE PUSH ERROR 
 
 ```bash
-# to confirm whteher image pushed to docker hub 
-docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="whitespaces issues & sometimes prettier, eslint formatting issues " -p 5501:5501 runipanda/auth-service:build-83 
+# to confirm whteher image pushed to docker hub & run docker
+docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="..." -p 5501:5501 runipanda/auth-service:build-93 
 
 # to run container
-docker run --rm --name authservice-container -v authservicedata:/var/lib/postgresql/data -p 5501:5501 -d runipanda/auth-service:build-83 
+docker run  --env-file $(pwd)/.env.dev -e PRIVATE_KEY="..." --rm --name authservice-container -v authservicedata:/var/lib/postgresql/data -p 5501:5501 -d runipanda/auth-service:build-93 
 ```
 
 - replace bcrypt with bcryptjs
@@ -546,4 +546,40 @@ npm install bcryptjs -D @types/bcryptjs
 ### ERROR READING DURING PRIVATE KEY
 
 - in the end everything converted to dist folder (js) but dist doesn't contain certs & public folder
-- manually providing dist
+- manually providing dist in local
+- while docker container manually provide PRIVATE_KEY="" cuz it needs RS256 algorithm to read but in .env it becomes multiline which is hard to read by RS256 
+- access token is certified
+- refresh token doesn't need certification or optional
+
+### AGGREGATE ERROR
+
+- no directory or file found
+
+- jwks error
+```BASH
+DB_HOST=localhost
+DB_HOST=host.docker.internal
+
+# JWKS_URI="http://localhost:5501/.well-known/jwks.json"
+JWKS_URI="host.docker.internal:5501/.well-known/jwks.json"
+```
+
+### local server
+
+- copy public folder into dist foledr
+
+```bash
+# in apckage json
+"build": "tsc && cp -r public dist",
+```
+
+### Docker Container
+
+```bash
+# package.json
+"build": "tsc",
+
+# inside DockerFile
+# Ensure the public/.well-known directory is included in dist
+RUN mkdir -p dist/public/.well-known && cp -r public/.well-known dist/public/
+```
