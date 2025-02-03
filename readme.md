@@ -542,3 +542,8 @@ npm install bcryptjs -D @types/bcryptjs
 - in docker prod file - instructed ci to ignore dev dependencies
 - that's why docker hub image lacks express & other dev dependencies
 - now again installing express in dependencies only
+
+### ERROR READING DURING PRIVATE KEY
+
+- in the end everything converted to dist folder (js) but dist doesn't contain certs & public folder
+- manually providing dist
