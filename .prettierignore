@@ -10,3 +10,4 @@ eslint.config.mjs
 scripts/convertPemToJwk.mjs
 scripts/generateKeys.mjs
 .env.example
+.env.*

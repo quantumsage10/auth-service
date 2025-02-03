@@ -516,7 +516,11 @@ git pull
 ### DOCKER-HUB IMAGE PUSH ERROR 
 
 ```bash
-docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="..." -p 5501:5501 runipanda/auth-service:build-81 
+# to confirm whteher image pushed to docker hub 
+docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="whitespaces issues & sometimes prettier, eslint formatting issues " -p 5501:5501 runipanda/auth-service:build-83 
+
+# to run container
+docker run --rm --name authservice-container -v authservicedata:/var/lib/postgresql/data -p 5501:5501 -d runipanda/auth-service:build-83 
 ```
 
 - replace bcrypt with bcryptjs
@@ -526,4 +530,15 @@ npm uninstall bcrypt -D @types/bcrypt
 npm install bcryptjs -D @types/bcryptjs
 ```
 
-> Command Pallate - Restart ESLint Server
+> Command Pallate - Restart ESLint 
+
+- provide proper docker hub username & password 
+- or username & access token & password
+
+### Docker Container Running Error of Defective Image
+
+- the image pushed to docker hub lacks few dependencies like express
+- express was placed in dev dependencies
+- in docker prod file - instructed ci to ignore dev dependencies
+- that's why docker hub image lacks express & other dev dependencies
+- now again installing express in dependencies only
