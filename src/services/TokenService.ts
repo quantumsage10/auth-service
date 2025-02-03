@@ -27,6 +27,8 @@ export class TokenService {
             throw error
         }
 
+        console.log('PRIVATE KEY RAEDING', Config.PRIVATE_KEY)
+
         const accessToken = sign(payload, privateKey, {
             algorithm: 'RS256',
             expiresIn: '1h',

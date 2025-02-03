@@ -16,6 +16,9 @@ COPY . .
 # Build the application (assumes there's a build script in package.json)
 RUN npm run build
 
+# Ensure the public/.well-known directory is included in dist
+RUN mkdir -p dist/public/.well-known && cp -r public/.well-known dist/public/
+
 # Use the official Node.js 18 Alpine image as the base for the production stage
 FROM node:22-alpine AS production
 
