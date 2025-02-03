@@ -25,6 +25,18 @@ describe('POST /auth/logout', () => {
 
     describe('Given a logged-in user', () => {
         it('should logout the user & return a 200 status', async () => {
+            // TRUNCATE ALL TABLES
+            const truncateTables = async (connection: DataSource) => {
+                const entities = connection.entityMetadatas
+                for (const entity of entities) {
+                    const repository = connection.getRepository(entity.target)
+                    await repository.query(
+                        `TRUNCATE TABLE "${entity.tableName}" RESTART IDENTITY CASCADE`,
+                    )
+                }
+            }
+
+            await truncateTables(connection)
             // Arrange: create a user in the DB
             const userData = {
                 firstName: 'jane',
