@@ -37,13 +37,11 @@ describe('GET /auth/self', () => {
                 role: Roles.CUSTOMER,
             })
 
-            //  console.log("Access Token :",accessToken )
             const response = await request(app)
                 .get('/auth/self')
                 .set('Cookie', [`accessToken=${accessToken}`])
                 .send()
 
-            // console.log("Response Body:", response.body)
             expect(response.statusCode).toBe(200)
         })
 
@@ -73,16 +71,6 @@ describe('GET /auth/self', () => {
                 .get('/auth/self')
                 .set('Cookie', [`accessToken=${accessToken}`])
                 .send()
-
-            console.log('response body:', response.body)
-            // response body: {
-            //     id: 1,
-            //     firstName: 'runi',
-            //     lastName: 'p',
-            //     email: 'panda@mern.space',
-            //     password: 'secret', // need to hide password field in response
-            //     role: 'customer'
-            //   }
 
             // Assert
             // Check if user id matches with registered user
@@ -116,8 +104,6 @@ describe('GET /auth/self', () => {
                 .set('Cookie', [`accessToken=${accessToken}`])
                 .send()
 
-            console.log('response body without password field:', response.body)
-
             // Assert
             // Check if user id matches with registered user
             expect(response.body as Record<string, string>).not.toHaveProperty(
@@ -142,8 +128,6 @@ describe('GET /auth/self', () => {
 
             // Add token to cookie
             const response = await request(app).get('/auth/self').send()
-
-            console.log('response body without password field:', response.body)
 
             // Assert
             // Check if user id matches with registered user

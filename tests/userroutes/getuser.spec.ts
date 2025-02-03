@@ -62,8 +62,6 @@ describe('GET /users', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
-            console.log('USERS DB:- ', users)
-
             const response = await request(app)
                 .get('/users')
                 .query({ currentPage: 1, perPage: 6 })

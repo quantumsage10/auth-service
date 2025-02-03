@@ -619,3 +619,18 @@ qxBg9nh1o4OrT81EOsi9vpTAzeaAL84OVEyCp6rgOStceRHWCUEkXOzftzk/cFk+
 D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 -----END RSA PRIVATE KEY-----" -e JWKS_URI="http://localhost:5501/.well-known/jwks.json" -p 5501:5501 -v $(pwd)/certs:/src/certs runipanda/auth-service:build-95
 ```
+
+- image build no changes while making changes in source code
+
+# FEW TIPS
+
+> most imp check `git branch` always, before making any chnages to code!
+
+- if in main branch first run git pull for syncing with cloud
+- take care of git merge
+- all credentials/config must be correct like supabase, sonarcloud, docker hub, github , ssh keys, tokens
+- keep docker hub turned on when pushing image for the first time
+- send few env variables via treminal - for instance :- jwks & private_key
+- check all dependencies & dev dependencies correct versioning
+- check dockerfile
+- add non-ts file into dist folder

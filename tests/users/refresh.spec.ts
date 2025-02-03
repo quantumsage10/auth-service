@@ -67,7 +67,6 @@ describe('POST /auth/refresh', () => {
             .send()
 
         // Assert response
-        console.log('response body:', response.body)
         expect(response.status).toBe(200) // Expect success
     })
 })

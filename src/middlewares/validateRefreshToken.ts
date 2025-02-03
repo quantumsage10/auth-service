@@ -16,8 +16,6 @@ export default expressjwt({
 
     // check whether refresh token exists in database
     async isRevoked(request: Request, token) {
-        console.log('VALIDATE REFRESH TOKEN', token)
-
         try {
             const refreshTokenRepo = AppDataSource.getRepository(RefreshToken)
             const refreshToken = await refreshTokenRepo.findOne({

@@ -85,8 +85,6 @@ describe('POST /auth/register', () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
 
-            console.log('USERS MAIN:', users)
-
             expect(users[0]).toHaveProperty('role')
             expect(users[0].role).toBe(Roles.CUSTOMER)
         })
@@ -184,8 +182,6 @@ describe('POST /auth/register', () => {
                 .post('/auth/register')
                 .send(userData)
 
-            console.log('REFRESH TOKEN RESPONSE BODY ID:', response.body)
-
             const refreshTokenRepo = connection.getRepository(RefreshToken)
 
             const tokens = await refreshTokenRepo
@@ -214,14 +210,11 @@ describe('POST /auth/register', () => {
                 .post('/auth/register')
                 .send(userData)
 
-            console.log('NO EMAIL GIVEN:-', response.body)
-
             // Assert
             expect(response.statusCode).toBe(400)
             // const userRepository = connection.getRepository(User)
             // const users = await userRepository.find()
 
-            // console.log('USER REPOSITORY USER', users)
             // expect(users).toHaveLength(0)
         }, 500000)
 
@@ -237,8 +230,6 @@ describe('POST /auth/register', () => {
             const response = await request(app)
                 .post('/auth/register')
                 .send(userData)
-
-            console.log('Response Body Object:-', response.body)
 
             // Assert
             expect(response.body).toHaveProperty('errors')
@@ -323,11 +314,9 @@ describe('POST /auth/register', () => {
                 .post('/auth/register')
                 .send(userData)
 
-            // console.log(response.body)
             // Assert
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
-            console.log('Users:', users)
             const user = users[0]
             expect(user.email).toBe('panda@mern.space')
         }, 500000)
