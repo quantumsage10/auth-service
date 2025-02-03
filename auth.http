@@ -6,7 +6,7 @@ Content-Type: application/json
 {
   "firstName": "admin",
   "lastName": "p",
-  "email": "rrrrrrrrrrrrradmin@mern.space",
+  "email": "pppadmin@mern.space",
   "password": "secret"
 }
 
@@ -59,11 +59,11 @@ Content-Type: application/json
 {
     "firstName": "zane",
     "lastName": "p",
-    "email": "zanedoe@mern.space",
+    "email": "zmanedoe@mern.space",
     "password": "password",
     "role": "customer",
     "tenantId": 3
 }
 
 ### get users
-GET http://localhost:5501/users
+GET http://localhost:5501/users/1
