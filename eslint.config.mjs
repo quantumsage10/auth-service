@@ -22,7 +22,8 @@ export default tseslint.config(
             "node_modules",
             "dist",
             ".github",
-            ".env.*"
+            ".env.*",
+            "*.js"
         ],
     },
     {

@@ -6,17 +6,48 @@ Content-Type: application/json
 {
   "firstName": "admin",
   "lastName": "p",
-  "email": "pppadmin@mern.space",
+  "email": "zane@mern.space",
   "password": "secret"
 }
 
-### ADMIN login 
+### ADMIN 1 login 
 
 POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "radmin@mern.space",
+  "email": "rdmin@mern.space",
+  "password": "secret"
+}
+
+### ADMIN 2
+
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "runi@mern.space",
+  "password": "secret"
+}
+
+
+### CUSTOMER
+
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "panda@mern.space",
+  "password": "secret"
+}
+
+
+### CUSTOMER 2
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "zane@mern.space",
   "password": "secret"
 }
 
@@ -35,7 +66,7 @@ POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "runi@mern.space",
+  "email": "panda@mern.space",
   "password": "secret"
 }
 
@@ -66,4 +97,4 @@ Content-Type: application/json
 }
 
 ### get users
-GET http://localhost:5501/users/1
+GET http://localhost:5501/users
