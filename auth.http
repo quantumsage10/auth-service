@@ -4,9 +4,9 @@ POST http://localhost:5501/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "admin",
-  "lastName": "p",
-  "email": "zane@mern.space",
+  "firstName": "janee",
+  "lastName": "doe",
+  "email": "janee@mern.space",
   "password": "secret"
 }
 
@@ -37,7 +37,7 @@ POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "panda@mern.space",
+  "email": "janee@mern.space",
   "password": "secret"
 }
 
@@ -50,6 +50,16 @@ Content-Type: application/json
   "email": "zane@mern.space",
   "password": "secret"
 }
+
+### MANAGER
+POST http://localhost:5501/auth/login
+Content-Type: application/json
+
+{
+  "email": "manager2@mern.space",
+  "password": "secret"
+}
+
 
 ### self
 GET http://localhost:5501/auth/self
@@ -90,10 +100,10 @@ Content-Type: application/json
 {
     "firstName": "zane",
     "lastName": "p",
-    "email": "zmanedoe@mern.space",
+    "email": "zzmanedoe@mern.space",
     "password": "password",
     "role": "customer",
-    "tenantId": 3
+    "tenantId": 1
 }
 
 ### get users

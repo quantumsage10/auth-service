@@ -634,3 +634,26 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - check all dependencies & dev dependencies correct versioning
 - check dockerfile
 - add non-ts file into dist folder
+
+### AUTHENTICATION PROBLEM
+
+- jwks requires key id(kid) inside keys array
+- n & e means public key 
+
+```bash
+{
+  "kty": "RSA",
+  "use": "sig",
+  "kid": "12345",
+  "n": "AN0PTX1P03HVcPk4fFe3BGLcj_O5-KsVktLTAHlenUOanFseLwBysSZlJ3HJmdhzOAhp_ceXjr6MheYyJczXX2f-5tyObUseA0wHBSEJKBVHJKWBGHSBHFJBWHJRGUHJREHRJEHJhjebrhwbrhwgKERNTJKHTNJHjewbgjwhrjHERJHN-yCERtJIKMrH197oMVFXWZb1Xq154miUi7acHKQmvQcQvh5WV6WAD-ld94X3TbvBiv8FOr0CGP78d-B3k-koQ1NRZCDPdrKrmJQjIQA8G9nl745TflnFEXjf-aNdmVBdkjZOyDF5jbkMJOEqAZGy6N9ScIs",
+  "e": "AQAB"
+}
+
+```
+
+### MIGRATIONS (SCHEMA CHANGE OF TYPEORM)
+
+- to change column (add or remove)
+- entity - refresh_token to refreshTokens
+- entity - user to users 
+- entity - in users craete column tenenatid
