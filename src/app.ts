@@ -22,7 +22,9 @@ app.use(
         maxAge: '1yr', // Cache for one year
     }),
 )
+
 app.use(cookieParser())
+
 app.use(express.json())
 
 app.get('/', (req, res) => {

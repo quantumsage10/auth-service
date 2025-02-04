@@ -16,10 +16,11 @@ const startServer = async () => {
         logger.debug('debug')
     } catch (err) {
         if (err instanceof Error) {
+            console.log('TYPEORM DATABASE CONNECTION ERROR')
             logger.error(err.message)
             setTimeout(() => {
                 process.exit(1)
-            }, 1000)
+            }, 100)
         }
     }
 }

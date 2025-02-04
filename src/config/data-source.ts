@@ -12,8 +12,8 @@ export const AppDataSource = new DataSource({
 
     // Don't use this in production, always use false
 
-    synchronize: false, // tables create inside db
-    logging: false,
+    synchronize: false, // ⚠️ Be careful in production (use migrations instead)
+    logging: true, // Enable logging for debugging
     entities: ['src/entity/*.{ts,js}'],
     migrations: ['src/migration/*.{ts,js}'], // as migration scripts
     subscribers: [],

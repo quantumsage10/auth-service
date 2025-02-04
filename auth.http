@@ -4,9 +4,9 @@ POST http://localhost:5501/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "janee",
+  "firstName": "janeett",
   "lastName": "doe",
-  "email": "janee@mern.space",
+  "email": "janeedoe@mern.space",
   "password": "secret"
 }
 
@@ -100,7 +100,7 @@ Content-Type: application/json
 {
     "firstName": "zane",
     "lastName": "p",
-    "email": "zzmanedoe@mern.space",
+    "email": "zzzmanedoe@mern.space",
     "password": "password",
     "role": "customer",
     "tenantId": 1
