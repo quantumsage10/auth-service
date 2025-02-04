@@ -5,7 +5,8 @@ import { Config } from '../config'
 
 export default expressjwt({
     secret: jwksClient.expressJwtSecret({
-        jwksUri: Config.JWKS_URI!,
+        jwksUri:
+            Config.JWKS_URI! || 'http://localhost:5501/.well-known/jwks.json',
         cache: true,
         rateLimit: true,
     }) as unknown as GetVerificationKey,
