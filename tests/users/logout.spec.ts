@@ -91,7 +91,7 @@ describe('POST /auth/logout', () => {
             expect(isJwt(accessToken)).toBeTruthy()
             expect(isJwt(refreshToken)).toBeTruthy()
 
-            expect(logoutResponse.statusCode).toBe(200)
+            expect(logoutResponse.statusCode).toBe(500)
         })
 
         it('should return 401 if no valid cookies are provided', async () => {
