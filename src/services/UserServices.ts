@@ -67,9 +67,11 @@ export class UserService {
         })
     }
 
+    // Pagination - query parameters
     async getAll(validatedQuery: UserQueryParams) {
         const queryBuilder = this.userRepository.createQueryBuilder('user')
 
+        // q = query (?page="") in query parameters
         if (validatedQuery.q) {
             const searchTerm = `%${validatedQuery.q}%`
             queryBuilder.where(
@@ -82,19 +84,23 @@ export class UserService {
             )
         }
 
+        // if query has role
         if (validatedQuery.role) {
             queryBuilder.andWhere('user.role = :role', {
                 role: validatedQuery.role,
             })
         }
 
+        // Database Call parameters config
         const result = await queryBuilder
             .leftJoinAndSelect('user.tenant', 'tenant')
+            // no skip on first page 1 - 1 = 0 * 10 = 0 skip record 0
             .skip((validatedQuery.currentPage - 1) * validatedQuery.perPage)
+            // show 10 records from db per page
             .take(validatedQuery.perPage)
             .orderBy('user.id', 'DESC')
             .getManyAndCount()
-        return result
+        return result // returning an array
     }
 
     async update(

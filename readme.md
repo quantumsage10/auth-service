@@ -670,7 +670,7 @@ docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY
 MIJHhdqhvqjbqjAQEA3Q9NfU/TcdVw+Th8V7cEYtxSgm/...
 BCbY0VNnMChKhHXdqLayS+bdwrnO9hh85cGmtGzG3f2GTXGQgYU=
 -----END RSA PRIVATE KEY-----
-" -e REFRESH_TOKEN_SECRET="secretkeyforrefreshtoken" -e JWKS_URI="http://localhost:5501/.well-known/jwks.json" -p 5501:5501 runipanda/auth-service:build-103
+" -e REFRESH_TOKEN_SECRET="secretkeyforrefreshtoken" -e JWKS_URI="http://localhost:5501/.well-known/jwks.json" -p 5501:5501 -v volume-auth:/src/postgresql/data runipanda/auth-service:build-103
 {"level":"info","message":"First Database Connection successfully","serviceName":"auth-service","timestamp":"2025-02-04T15:19:32.782Z"}
 {"level":"warn","message":"warning","serviceName":"auth-service","timestamp":"2025-02-04T15:19:32.788Z"}
 {"level":"error","message":"error","serviceName":"auth-service","timestamp":"2025-02-04T15:19:32.788Z"}

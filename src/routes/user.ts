@@ -42,6 +42,7 @@ router.patch(
         userController.update(req, res, next),
 )
 
+// Pagination - query params data
 router.get(
     '/',
     authenticate as RequestHandler,

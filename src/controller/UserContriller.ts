@@ -72,15 +72,20 @@ export class UserController {
         }
     }
 
+    // Pagination - get request query params involved
     async getAll(req: Request, res: Response, next: NextFunction) {
+        // validate query params otherwise ignore query params
         const validatedQuery = matchedData(req, { onlyValidData: true })
 
         try {
+            // DB Call - returning an array
             const [users, count] = await this.userService.getAll(
                 validatedQuery as UserQueryParams,
             )
 
             this.logger.info('All users have been fetched')
+
+            // response
             res.json({
                 currentPage: validatedQuery.currentPage as number,
                 perPage: validatedQuery.perPage as number,

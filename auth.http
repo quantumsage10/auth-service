@@ -88,8 +88,8 @@ POST http://localhost:5501/tenants
 Content-Type: application/json
 
 {  
-  "name": "john",
-  "address": "CANADA"
+  "name": "april",
+  "address": "usa"
 }
 
 ### register users with tenant id
@@ -100,10 +100,10 @@ Content-Type: application/json
 {
     "firstName": "zane",
     "lastName": "p",
-    "email": "zzzmanedoe@mern.space",
+    "email": "aprildoe@mern.space",
     "password": "password",
     "role": "customer",
-    "tenantId": 1
+    "tenantId": 2
 }
 
 ### get users
