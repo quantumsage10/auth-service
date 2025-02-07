@@ -16,6 +16,7 @@ export class TenantService {
     async getAll(validatedQuery: TenantQueryParams) {
         const queryBuilder = this.tenantRepository.createQueryBuilder('tenant')
 
+        // filtration tenants by query params
         if (validatedQuery.q) {
             const searchTerm = `%${validatedQuery.q}%`
             queryBuilder.where(

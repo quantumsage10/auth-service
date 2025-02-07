@@ -3,7 +3,7 @@
 const greeting: string = "Hello World!"
 ```
 
->✔️  npx means to execute code
+> ✔️  npx means to execute code
 
 ### typescript in Command Line
 
