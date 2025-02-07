@@ -496,6 +496,7 @@ git pull origin feature1
 
 # CI PIPELINE 
 
+- docs
 > .github/workflows/ci.yml file prototcol/instructions
 
 ### Pull Request PR in github
@@ -634,6 +635,12 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 
 - image build no. changes while making changes in source code
 
+###  SQL Relation Joins
+
+> using typeorm queryBuilder
+- ManyToOne Relationship between users table & tenants table 
+- which simply means many tenants to One user
+
 # FEW TIPS
 
 > most imp check `git branch` always, before making any chnages to code!
@@ -701,6 +708,8 @@ BCbY0VNnMChKhHXdqLayS+bdwrnO9hh85cGmtGzG3f2GTXGQgYU=
 ```
 
 </details>
+
+
 
 ---
 

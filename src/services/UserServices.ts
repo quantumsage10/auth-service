@@ -103,15 +103,16 @@ export class UserService {
 
         // Database Call query parameters config
         const result = await queryBuilder
+            // alias for tenant table(entity) -  ManyToOne
             .leftJoinAndSelect('user.tenant', 'tenant')
             // no skip on first page 1 - 1 = 0 * 10 = 0 skip record 0
             .skip((validatedQuery.currentPage - 1) * validatedQuery.perPage)
             // limit show 10 records from db per page
             .take(validatedQuery.perPage)
-            .orderBy('user.id')
+            .orderBy('user.id', 'DESC')
             .getManyAndCount()
 
-        console.log('Console Query Builder SQL Query', queryBuilder.getSql())
+        // console.log('Console Query Builder SQL Query', queryBuilder.getSql())
 
         return result // returning an array
     }
