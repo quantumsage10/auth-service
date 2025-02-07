@@ -1,10 +1,11 @@
 import { checkSchema } from 'express-validator'
 
-// Pagination - Get Requset - query param
+// Pagination - Get Requset - 4 query param
 
 export default checkSchema(
     {
         q: {
+            // saerch query
             trim: true,
             customSanitizer: {
                 options: (value: unknown) => {

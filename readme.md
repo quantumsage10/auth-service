@@ -1,4 +1,9 @@
-> npx means to run code
+
+```ts
+const greeting: string = "Hello World!"
+```
+
+>✔️  npx means to execute code
 
 ### typescript in Command Line
 
@@ -17,6 +22,8 @@
 ### typescript eslint static code scanner
 
 - install from docs
+  
+ ✖️ ~~npm run~~
 - npx eslint .
 - eslint.config.mjs - Linting with type info
 
@@ -585,8 +592,11 @@ JWKS_URI="http://localhost:5501/.well-known/jwks.json"
 RUN mkdir -p dist/public/.well-known && cp -r public/.well-known dist/public/
 ```
 
-
 ### APP WORKS AFTER FEW FIXES 
+
+<details>
+  <summary style="font-weight: bold; color: grey;">Docker Code</summary>
+  <p>Here you can find the code to run docker conatainer with env variables <br> after downloading image from docker hub</p>
 
 ```bash
 # terminal
@@ -619,8 +629,10 @@ qxBg9nh1o4OrT81EOsi9vpTAzeaAL84OVEyCp6rgOStceRHWCUEkXOzftzk/cFk+
 D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 -----END RSA PRIVATE KEY-----" -e JWKS_URI="http://localhost:5501/.well-known/jwks.json" -p 5501:5501 -v $(pwd)/certs:/src/certs runipanda/auth-service:build-95
 ```
+</details>
 
-- image build no changes while making changes in source code
+
+- image build no. changes while making changes in source code
 
 # FEW TIPS
 
@@ -640,7 +652,12 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - jwks requires key id(kid) inside keys array
 - n & e means public key 
 
-```bash
+
+<details>
+  <summary style="font-weight: bold; color: grey;">JWT Secret Key</summary>
+  <p>Here you can find the code</p>
+
+```json
 {
   "kty": "RSA",
   "use": "sig",
@@ -650,6 +667,8 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 }
 
 ```
+</details>
+
 
 ### MIGRATIONS (SCHEMA CHANGE OF TYPEORM)
 
@@ -665,6 +684,10 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - image db_port & postgres db_port must be same
 - this below code works 
 
+<details>
+  <summary style="font-weight: bold; color: grey;">Docker Code</summary>
+  <p>Here you can find advanced config options</p>
+
 ```bash
 docker run --env-file $(pwd)/.env.dev -e PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
 MIJHhdqhvqjbqjAQEA3Q9NfU/TcdVw+Th8V7cEYtxSgm/...
@@ -676,3 +699,54 @@ BCbY0VNnMChKhHXdqLayS+bdwrnO9hh85cGmtGzG3f2GTXGQgYU=
 {"level":"error","message":"error","serviceName":"auth-service","timestamp":"2025-02-04T15:19:32.788Z"}
 {"level":"info","message":"Second - http://localhost:5501","serviceName":"auth-service","timestamp":"2025-02-04T15:19:32.791Z"}
 ```
+
+</details>
+
+---
+
+
+# ERRORS
+
+### 🔍 Problem: SQL Queries Appear in VS Code but Not in Docker Logs
+
+🔹 SQL queries are logging in VS Code Console terminal l but not appearing in Docker logs
+- Docker captures only console logs (console.log, console.error)
+- Docker captures only stdout and stderr
+- Set Winston level to "debug" in logger.ts
+
+✔️ Check if logs are going to a file inside
+the container (/var/log/) 
+- not going to var/log
+
+✔️ Restart the container after changes 
+
+
+---
+# 
+*Playful stuff*
+
+<details>
+  <summary style="font-weight: bold; color: grey;">Click to expand!</summary>
+  <p>Hidden content here.</p>
+  <p>
+  Simply Math Equations : With extensions like KaTeX or MathJax, can include LaTeX math equations
+  </p>
+
+- Inline math: <br>
+$E = mc^2$
+
+- Block math: <br>
+$$
+\begin{pmatrix}
+a & b \\
+c & d 
+\end{pmatrix}
+$$
+
+</details>
+
+---
+
+
+
+

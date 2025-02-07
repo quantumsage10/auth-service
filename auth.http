@@ -108,3 +108,27 @@ Content-Type: application/json
 
 ### get users
 GET http://localhost:5501/users
+
+### Get users with query params
+
+GET http://localhost:5501/users?currentPage=4&perPage=10
+
+### Get users with query params skip
+
+GET http://localhost:5501/users?currentPage=4&skip=8
+
+
+### Get usesr using search query
+
+GET http://localhost:5501/users?currentPage=1&perPage=10&q=jane
+
+
+### Get users using search query & role
+
+GET http://localhost:5501/users?q=runi&role=admin
+
+
+
+### Get users using search query & role
+
+GET http://localhost:5501/users?q=runi

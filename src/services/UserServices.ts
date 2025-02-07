@@ -71,35 +71,48 @@ export class UserService {
     async getAll(validatedQuery: UserQueryParams) {
         const queryBuilder = this.userRepository.createQueryBuilder('user')
 
-        // q = query (?page="") in query parameters
+        // if q = search query (?page="") in query parameters
         if (validatedQuery.q) {
+            // call db - sql saerch query - %text%
             const searchTerm = `%${validatedQuery.q}%`
+
+            // SELECT * FROM user
+            // WHERE (CONCAT(user.firstName, ' ', user.lastName) ILIKE '%john%'
+            // OR user.email ILIKE '%john%')
+
+            // TypeORM's QueryBuilder - case-insensitive search (ILIKE)
+            // "user" is an alias for the users table
             queryBuilder.where(
-                new Brackets((qb) => {
-                    qb.where(
-                        "CONCAT(user.firstName, ' ', user.lastName) ILike :q",
-                        { q: searchTerm },
-                    ).orWhere('user.email ILike :q', { q: searchTerm })
+                new Brackets((querybuild) => {
+                    querybuild
+                        .where(
+                            "CONCAT(user.firstName, ' ', user.lastName) ILike :q",
+                            { q: searchTerm },
+                        )
+                        .orWhere('user.email ILike :q', { q: searchTerm })
                 }),
             )
         }
 
-        // if query has role
+        // if query param has role
         if (validatedQuery.role) {
             queryBuilder.andWhere('user.role = :role', {
                 role: validatedQuery.role,
             })
         }
 
-        // Database Call parameters config
+        // Database Call query parameters config
         const result = await queryBuilder
             .leftJoinAndSelect('user.tenant', 'tenant')
             // no skip on first page 1 - 1 = 0 * 10 = 0 skip record 0
             .skip((validatedQuery.currentPage - 1) * validatedQuery.perPage)
-            // show 10 records from db per page
+            // limit show 10 records from db per page
             .take(validatedQuery.perPage)
-            .orderBy('user.id', 'DESC')
+            .orderBy('user.id')
             .getManyAndCount()
+
+        console.log('Console Query Builder SQL Query', queryBuilder.getSql())
+
         return result // returning an array
     }
 

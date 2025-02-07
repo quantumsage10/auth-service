@@ -12,8 +12,8 @@ export const AppDataSource = new DataSource({
 
     // Don't use this in production, always use false
 
-    synchronize: false, // ⚠️ Be careful in production (use migrations instead)
-    logging: false, // all postgresql queries logs
+    synchronize: false, // ⚠️ Be careful in production (use migrations instead to change table's columns/schema/model/entity)
+    logging: true, // all postgresql queries logs
     entities: ['src/entity/*.{ts,js}'],
     migrations: ['src/migration/*.{ts,js}'], // as migration scripts
     subscribers: [],
