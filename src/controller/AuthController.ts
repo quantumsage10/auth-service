@@ -1,20 +1,20 @@
 import { NextFunction, Response } from 'express'
+import { JwtPayload } from 'jsonwebtoken'
 import { AuthRequest, RegisterUserRequest } from '../types'
-import { UserService } from '../services/UserServices'
 import { Logger } from 'winston'
 import { validationResult } from 'express-validator'
-import { JwtPayload } from 'jsonwebtoken'
 import { TokenService } from '../services/TokenService'
 import createHttpError from 'http-errors'
 import { CredentialService } from '../services/CredentialService'
 import { Roles } from '../constants'
+import { UserService } from '../services/UserServices'
 
 export class AuthController {
     constructor(
-        private readonly userService: UserService,
-        private readonly logger: Logger,
-        private readonly tokenService: TokenService,
-        private readonly credentialService: CredentialService,
+        private userService: UserService,
+        private logger: Logger,
+        private tokenService: TokenService,
+        private credentialService: CredentialService,
     ) {}
 
     async register(
@@ -22,20 +22,19 @@ export class AuthController {
         res: Response,
         next: NextFunction,
     ) {
+        // Validation
         const result = validationResult(req)
         if (!result.isEmpty()) {
-            res.status(400).json({ errors: result.array() })
+            return res.status(400).json({ errors: result.array() })
         }
-
         const { firstName, lastName, email, password } = req.body
 
-        this.logger.debug('New Request to register a User', {
+        this.logger.debug('New request to register a user', {
             firstName,
             lastName,
             email,
-            password: '*******',
+            password: '******',
         })
-
         try {
             const user = await this.userService.create({
                 firstName,
@@ -44,21 +43,24 @@ export class AuthController {
                 password,
                 role: Roles.CUSTOMER,
             })
-
-            this.logger.info('User has been registered', { sub: user.id })
+            this.logger.info('User has been registered', { id: user.id })
 
             const payload: JwtPayload = {
                 sub: String(user.id),
                 role: user.role,
+                // add tenant id to the payload
+                tenant: user.tenant ? String(user.tenant.id) : '',
+
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
             }
 
             const accessToken = this.tokenService.generateAccessToken(payload)
 
-            // persist refresh token in database (a record for refresh token)
+            // Persist the refresh token
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
-            // Generate a refresh token with the payload(userId & role), including the new token ID as a string.
-            // It then generates a secure token string (with user details and the token ID) that can be used by the client to request new access tokens when the current ones expire.
 
             const refreshToken = this.tokenService.generateRefreshToken({
                 ...payload,
@@ -68,60 +70,50 @@ export class AuthController {
             res.cookie('accessToken', accessToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1hour
-                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 1, // 1d
+                httpOnly: true, // Very important
             })
 
             res.cookie('refreshToken', refreshToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365, // 1year
-                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 365, // 1y
+                httpOnly: true, // Very important
             })
 
-            res.status(201).json({ sub: user.id })
-        } catch (error) {
-            next(error)
+            res.status(201).json({ id: user.id })
+        } catch (err) {
+            next(err)
             return
         }
     }
 
     async login(req: RegisterUserRequest, res: Response, next: NextFunction) {
-        // raw details from request body
-
+        // Validation
         const result = validationResult(req)
-
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() })
+        }
         const { email, password } = req.body
 
-        if (!result.isEmpty()) {
-            res.status(400).json({ errors: result.array() })
-        }
-
-        this.logger.debug('New Request to login a user', {
+        this.logger.debug('New request to login a user', {
             email,
+            password: '******',
         })
 
-        // Check if useranme(email) exists in database
-
         try {
-            const user = await this.userService.findByEmail(email)
-
+            const user = await this.userService.findByEmailWithPassword(email)
             if (!user) {
                 const error = createHttpError(
                     400,
-                    "Email or Password doesn't match!",
+                    'Email or password does not match.',
                 )
                 next(error)
                 return
             }
 
-            // Compare passsword
-
             const passwordMatch = await this.credentialService.comparePassword(
-                // raw password from user login request
                 password,
-
-                // previously saved password in db
                 user.password,
             )
 
@@ -143,49 +135,42 @@ export class AuthController {
                 email: user.email,
             }
 
-            // generate Tokens
-
             const accessToken = this.tokenService.generateAccessToken(payload)
 
-            // persist in db checks
+            // Persist the refresh token
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
 
-            // new refresh token when earlier expires
             const refreshToken = this.tokenService.generateRefreshToken({
                 ...payload,
                 id: String(newRefreshToken.id),
             })
 
-            // Add tokens to Cookies
-
             res.cookie('accessToken', accessToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1hour
-                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 1, // 1d
+                httpOnly: true, // Very important
             })
 
             res.cookie('refreshToken', refreshToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60 * 24 * 365, // 1year
-                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 365, // 1y
+                httpOnly: true, // Very important
             })
-
-            // Return the response (id)
 
             this.logger.info('User has been logged in', { id: user.id })
             res.json({ id: user.id })
-        } catch (error) {
-            next(error)
+        } catch (err) {
+            next(err)
             return
         }
     }
 
     async self(req: AuthRequest, res: Response) {
+        // token req.auth.id
         const user = await this.userService.findById(Number(req.auth.sub))
-
         res.json({ ...user, password: undefined })
     }
 
@@ -208,14 +193,13 @@ export class AuthController {
                 return
             }
 
-            // Persist the refresh token - check in database
+            // Persist the refresh token
             const newRefreshToken =
                 await this.tokenService.persistRefreshToken(user)
 
             // Delete old refresh token
             await this.tokenService.deleteRefreshToken(Number(req.auth.id))
 
-            // generate refresh token, if access token expires
             const refreshToken = this.tokenService.generateRefreshToken({
                 ...payload,
                 id: String(newRefreshToken.id),
@@ -224,7 +208,7 @@ export class AuthController {
             res.cookie('accessToken', accessToken, {
                 domain: 'localhost',
                 sameSite: 'strict',
-                maxAge: 1000 * 60 * 60, // 1h
+                maxAge: 1000 * 60 * 60 * 24 * 1, // 1d
                 httpOnly: true, // Very important
             })
 
@@ -245,10 +229,8 @@ export class AuthController {
 
     async logout(req: AuthRequest, res: Response, next: NextFunction) {
         try {
-            // here req takes an id & sub field also
             await this.tokenService.deleteRefreshToken(Number(req.auth.id))
-
-            this.logger.info('Refresh Token has been deleted', {
+            this.logger.info('Refresh token has been deleted', {
                 id: req.auth.id,
             })
             this.logger.info('User has been logged out', { id: req.auth.sub })
@@ -257,8 +239,8 @@ export class AuthController {
             res.clearCookie('refreshToken')
             res.json({})
         } catch (err) {
-            this.logger.error('Error during logout', { error: err })
             next(err)
+            return
         }
     }
 }
