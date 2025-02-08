@@ -14,8 +14,10 @@ export class TenantService {
     }
 
     async getAll(validatedQuery: TenantQueryParams) {
+        // pagination
         const queryBuilder = this.tenantRepository.createQueryBuilder('tenant')
 
+        // filtration tenants by query params
         if (validatedQuery.q) {
             const searchTerm = `%${validatedQuery.q}%`
             queryBuilder.where(
@@ -24,6 +26,7 @@ export class TenantService {
             )
         }
 
+        // pagination
         const result = await queryBuilder
             .skip((validatedQuery.currentPage - 1) * validatedQuery.perPage)
             .take(validatedQuery.perPage)

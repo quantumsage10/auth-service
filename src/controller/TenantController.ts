@@ -63,6 +63,7 @@ export class TenantController {
     }
 
     async getAll(req: Request, res: Response, next: NextFunction) {
+        // pagination - search params
         const validatedQuery = matchedData(req, { onlyValidData: true })
         try {
             const [tenants, count] = await this.tenantService.getAll(

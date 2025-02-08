@@ -7,15 +7,15 @@ import { UserService } from '../services/UserServices'
 
 export class UserController {
     constructor(
-        private readonly userService: UserService,
-        private readonly logger: Logger,
+        private userService: UserService,
+        private logger: Logger,
     ) {}
 
     async create(req: CreateUserRequest, res: Response, next: NextFunction) {
         // Validation
         const result = validationResult(req)
         if (!result.isEmpty()) {
-            return next(createHttpError(400, result.array()[0].msg as string))
+            next(createHttpError(400, result.array()[0].msg as string))
         }
 
         const { firstName, lastName, email, password, tenantId, role } =
@@ -49,12 +49,13 @@ export class UserController {
         const userId = req.params.id
 
         if (isNaN(Number(userId))) {
+            console.log('User Id Invalid Send Correct')
             next(createHttpError(400, 'Invalid url param.'))
-            return
         }
 
         this.logger.debug('Request for updating a user', req.body)
 
+        // db call
         try {
             await this.userService.update(Number(userId), {
                 firstName,
@@ -72,20 +73,15 @@ export class UserController {
         }
     }
 
-    // Pagination - get request query params involved
     async getAll(req: Request, res: Response, next: NextFunction) {
-        // validate query params otherwise ignore query params
         const validatedQuery = matchedData(req, { onlyValidData: true })
 
         try {
-            // DB Call - returning an array
             const [users, count] = await this.userService.getAll(
                 validatedQuery as UserQueryParams,
             )
 
             this.logger.info('All users have been fetched')
-
-            // response
             res.json({
                 currentPage: validatedQuery.currentPage as number,
                 perPage: validatedQuery.perPage as number,
