@@ -729,8 +729,27 @@ the container (/var/log/)
 
 ✔️ Restart the container after changes 
 
+### React Query Key - latest data fetched in console but not in UI
 
----
+- queryKey is not set properly during refetching (invalidate) data
+- react-query mutation doesn't return Promise that's why can't be awaited
+💠 to fix code add await in next line or add promise based delay time 
+
+
+### Global Error Handling
+
+- must be the last middleware to catch errors
+- if inside production mode, do not send `server Error  original message` to client - modify error message then send
+- do not send everything (req or res object) to client cuz of `security issues`
+
+```sh
+npm install uuid
+npm i @types/uuid
+```
+
+- We use uuidv4 to generate unique identifiers for objects, records, or entities in our applications. UUID (Universally Unique Identifier) version 4 (v4) is randomly generated
+- Uniqueness – Prevents ID conflicts across different systems or databases
+
 # 
 *Playful stuff*
 
