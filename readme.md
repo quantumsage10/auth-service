@@ -749,7 +749,19 @@ npm i @types/uuid
 
 - We use uuidv4 to generate unique identifiers for objects, records, or entities in our applications. UUID (Universally Unique Identifier) version 4 (v4) is randomly generated
 - Uniqueness – Prevents ID conflicts across different systems or databases
+- give id to every error
 
+
+### Express Router Error
+
+```ts
+const expressRouterFunc = (req: string, res: string, next: string, error: string) => Promise<void>
+``` 
+- express router methods expects void in return means no return statements
+- typecast explicitely to return something like promise based data
+
+
+---
 # 
 *Playful stuff*
 
