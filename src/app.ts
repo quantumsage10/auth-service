@@ -31,7 +31,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+
 app.use('/tenants', tenantRouter)
+
 app.use('/users', userRouter)
 
 app.use(globalErrorHandler)
