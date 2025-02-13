@@ -15,7 +15,13 @@ export const globalErrorHandler = (
 
     // if inside production mode, do not show original message cuz we are sending to client
     const isProduction = process.env.NODE_ENV === 'production'
-    const message = isProduction ? 'Internal server error' : err.message
+    // const message = isProduction ? 'Internal server error' : err.message
+
+    /// todo: error message should be more user friendly if 400 then send to client
+    let message = 'Internal server error'
+    if (statusCode === 400) {
+        message = err.message
+    }
 
     // show original message inside console for developers
     logger.error(err.message, {

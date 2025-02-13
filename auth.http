@@ -1,17 +1,15 @@
 ### ADMIN register
-
 POST http://localhost:5501/auth/register
 Content-Type: application/json
 
 {
   "firstName": "janeett",
   "lastName": "doe",
-  "email": "janeebb@doemern.space",
+  "email": "janettttbb@doemern.space",
   "password": "secret"
 }
 
 ### ADMIN 1 login 
-
 POST http://localhost:5501/auth/login
 Content-Type: application/json
 
@@ -21,7 +19,6 @@ Content-Type: application/json
 }
 
 ### ADMIN 2
-
 POST http://localhost:5501/auth/login
 Content-Type: application/json
 
@@ -29,7 +26,6 @@ Content-Type: application/json
   "email": "runi@mern.space",
   "password": "secret"
 }
-
 
 ### CUSTOMER
 
@@ -40,7 +36,6 @@ Content-Type: application/json
   "email": "janee@mern.space",
   "password": "secret"
 }
-
 
 ### CUSTOMER 2
 POST http://localhost:5501/auth/login
@@ -117,18 +112,13 @@ GET http://localhost:5501/users?currentPage=4&perPage=10
 
 GET http://localhost:5501/users?currentPage=4&skip=8
 
-
 ### Get usesr using search query
 
 GET http://localhost:5501/users?currentPage=1&perPage=10&q=jane
-
 
 ### Get users using search query & role
 
 GET http://localhost:5501/users?q=runi&role=admin
 
-
-
 ### Get users using search query & role
-
 GET http://localhost:5501/users?q=runi

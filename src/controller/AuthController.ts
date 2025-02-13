@@ -180,6 +180,10 @@ export class AuthController {
             const payload: JwtPayload = {
                 sub: req.auth.sub,
                 role: req.auth.role,
+                tenant: req.auth.tenant,
+                firstName: req.auth.firstName,
+                lastName: req.auth.lastName,
+                email: req.auth.email,
             }
 
             const accessToken = this.tokenService.generateAccessToken(payload)
