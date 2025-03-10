@@ -38,8 +38,8 @@ router.patch(
     authenticate as RequestHandler,
     canAccess([Roles.ADMIN]),
     updateUserValidator,
-    (req: UpdateUserRequest, res: Response, next: NextFunction) =>
-        userController.update(req, res, next),
+    (async (req: UpdateUserRequest, res: Response, next: NextFunction) =>
+        await userController.update(req, res, next)) as RequestHandler,
 )
 
 // Pagination - query params data

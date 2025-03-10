@@ -29,7 +29,7 @@ export class TokenService {
 
         const accessToken = sign(payload, privateKey, {
             algorithm: 'RS256',
-            expiresIn: '1h',
+            expiresIn: '1d',
             issuer: 'auth-service',
         })
         return accessToken
