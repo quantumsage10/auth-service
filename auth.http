@@ -46,12 +46,25 @@ Content-Type: application/json
   "password": "secret"
 }
 
+### MANAGER REGISTER
+POST http://localhost:5501/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "manager",
+  "lastName": "doe",
+  "email": "manager10@mern.space",
+  "password": "secret",
+  "role": "manager",
+  "tenantId": "10"
+}
+
 ### MANAGER
 POST http://localhost:5501/auth/login
 Content-Type: application/json
 
 {
-  "email": "manager2@mern.space",
+  "email": "manager10@mern.space",
   "password": "secret"
 }
 
