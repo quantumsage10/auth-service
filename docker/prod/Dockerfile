@@ -1,41 +1,37 @@
-# Use the official Node.js 18 Alpine image as the base for the builder stage
-FROM node:22-alpine AS builder
+# syntax=docker/dockerfile:1
 
-# Set the working directory inside the container
-WORKDIR /app
+ARG NODE_VERSION=21.7.1
 
-# Copy the package.json and package-lock.json files to the working directory
-COPY package*.json ./
+FROM node:${NODE_VERSION}-alpine as builder
 
-# Install dependencies using npm in a clean environment
-RUN npm ci
+WORKDIR /home/node/app
 
-# Copy the entire application source code to the working directory
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci
+
 COPY . .
 
-# Build the application (assumes there's a build script in package.json)
 RUN npm run build
 
-# Ensure the public/.well-known directory is included in dist
-RUN mkdir -p dist/public/.well-known && cp -r public/.well-known dist/public/
+FROM node:${NODE_VERSION}-alpine as runner
 
-# Use the official Node.js 18 Alpine image as the base for the production stage
-FROM node:22-alpine AS production
+USER node
 
-# Set the Node.js environment to production
+RUN mkdir -p /home/node/app
+
+WORKDIR /home/node/app
+
 ENV NODE_ENV=production
 
-# Copy the package.json and package-lock.json files to the working directory
-COPY package*.json ./
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev --ignore-scripts
 
-# Install production dependencies only, ignoring optional and dev dependencies
-RUN npm ci --ignore-scripts --omit=dev
+COPY --from=builder --chown=node:node /home/node/app/dist ./
 
-# Copy the built application from the builder stage to the production stage
-COPY --from=builder /app/dist ./
-
-# Expose port 5500 to allow external access to the application
 EXPOSE 5501
 
-# Specify the command to start the application
 CMD ["node", "src/server.js"]
