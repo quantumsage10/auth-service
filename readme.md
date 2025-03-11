@@ -641,6 +641,36 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - ManyToOne Relationship between users table & tenants table 
 - which simply means many tenants to One user
 
+# SUPABASE - POSTGRES CLOUD DB
+
+- gives a postgres-sever in-built deploy on aws
+- supabase creates postgres server & make queries 
+
+- supabase makes sure postgres server up & running
+- aws makes sure supabase server up & running
+  
+```py
+
+
+# supabase login
+SUPABASE_EMAIL=
+SUPABASE_PASSWORD=
+
+# will paste in github actions
+"SUPABASE_PASSWORD=n9XE2YRaMPII37by"
+```
+
+- add project name & place - cheapest aws - north
+- head to bottom - Project Setting - Configuration - database - Connect - get connection string URI (copy & paste it)
+
+```py
+# get the connection string
+postgresql://postgres:[YOUR-PASSWORD]@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres
+
+# supabase password
+postgresql://postgres:n9XE2YRaMPII37by@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres
+```
+
 # FEW TIPS
 
 > most imp check `git branch` always, before making any chnages to code!
