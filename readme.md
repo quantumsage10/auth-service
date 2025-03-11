@@ -763,7 +763,6 @@ const expressRouterFunc = (req: string, res: string, next: string, error: string
 - express router methods expects void in return means no return statements
 - typecast explicitely to return something like promise based data
 
-
 ---
 # 
 *Playful stuff*
