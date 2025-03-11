@@ -710,6 +710,9 @@ BCbY0VNnMChKhHXdqLayS+bdwrnO9hh85cGmtGzG3f2GTXGQgYU=
 </details>
 
 
+### Cookies
+
+- add main domain in cookies
 
 ---
 
