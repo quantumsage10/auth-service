@@ -651,7 +651,6 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
   
 ```py
 
-
 # supabase login
 SUPABASE_EMAIL=
 SUPABASE_PASSWORD=
@@ -665,10 +664,10 @@ SUPABASE_PASSWORD=
 
 ```py
 # get the connection string
-postgresql://postgres:[YOUR-PASSWORD]@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres
+"postgresql://postgres:[YOUR-PASSWORD]@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres"
 
 # supabase password
-postgresql://postgres:n9XE2YRaMPII37by@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres
+"postgresql://postgres:n9XE2YRaMPII37by@db.eahyxshhggptpjjspcdz.supabase.co:5432/postgres"
 ```
 
 # FEW TIPS
