@@ -792,6 +792,54 @@ const expressRouterFunc = (req: string, res: string, next: string, error: string
 - express router methods expects void in return means no return statements
 - typecast explicitely to return something like promise based data
 
+
+## Git Errors while Pushing
+
+### Github Push Blocking - can't push to github
+
+- first commit contains secret keys - restricted by github
+- second commit clears secret keys - can't push cuz first commit can't push
+
+```sh
+GitHub is blocking your push because it detected a Docker Personal Access Token in your commit.
+
+User
+You said:
+> git push origin main:main
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.        
+remote:      Visit the repository settings page, https://github.com/quantumsage10/auth-service/settings/security_analysis        
+remote:             
+remote:             
+remote:       —— Docker Personal Access Token ——————————————————————        
+remote:        locations:        
+remote:          - commit: 0343b6f4f76df6ef2f7afc88a01e8ce6826bed3a        
+remote:            path: readme.md:656        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/quantumsage10/auth-service/security/secret-scanning/unblock-secret/2uB3H3kX2VPO5WjW8qJLkW1CJJj        
+remote:             
+remote: 
+remote: 
+To github.com:quantumsage10/auth-service.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'github.com:quantumsage10/auth-service.git'
+```
+
+✅ to fix this
+
+
 ---
 # 
 *Playful stuff*
