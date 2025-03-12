@@ -650,6 +650,10 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - aws makes sure supabase server up & running
   
 ```py
+# docker login -u runipanda
+"DOCKER_HUB_USERNAME=runipanda"
+"DOCKER_HUB_PASSWORD=runiDev@13"
+
 # supabase login
 SUPABASE_EMAIL=
 SUPABASE_PASSWORD=
@@ -791,87 +795,41 @@ const expressRouterFunc = (req: string, res: string, next: string, error: string
 - express router methods expects void in return means no return statements
 - typecast explicitely to return something like promise based data
 
+### Github Blocked Push from Git Changes - Need for rebase/edit commits
 
-## GITHUB PUSH BLOCKED 
+- but why cuz git contains docker PAT(secret access token)
+- prior to that i have made 3 commits after that
+- so need to rebase to first defect commit & change all of these subsequent 3 commits - basically it means going back to time & fix everything
 
-- can't push to guthub cuz some secrets exposed to github
-
-```sh
-GitHub is still blocking your push because the Docker Personal Access Token is present in a previous commit
-
-
-Enumerating objects: 8, done.
-Counting objects: 100% (8/8), done.
-Delta compression using up to 8 threads
-Compressing objects: 100% (6/6), done.
-Writing objects: 100% (6/6), 1.09 KiB | 1.09 MiB/s, done.
-Total 6 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
-remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
-remote: error: GH013: Repository rule violations found for refs/heads/main.
-remote: 
-remote: - GITHUB PUSH PROTECTION
-remote:   —————————————————————————————————————————
-remote:     Resolve the following violations before pushing again
-remote: 
-remote:     - Push cannot contain secrets
-remote: 
-remote:     
-remote:      (?) Learn how to resolve a blocked push
-remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
-remote:     
-remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.
-remote:      Visit the repository settings page, https://github.com/quantumsage10/auth-service/settings/security_analysis
-remote:     
-remote:     
-remote:       —— Docker Personal Access Token ——————————————————————
-remote:        locations:
-remote:          - commit: 0343b6f4f76df6ef2f7afc88a01e8ce6826bed3a
-remote:            path: readme.md:656
-remote:     
-remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
-remote:        https://github.com/quantumsage10/auth-service/security/secret-scanning/unblock-secret/2uB3H3kX2VPO5WjW8qJLkW1CJJj
-remote:     
-remote: 
-remote: 
-To github.com:quantumsage10/auth-service.git
- ! [remote rejected] main -> main (push declined due to repository rule violations)
-error: failed to push some refs to 'github.com:quantumsage10/auth-service.git'
-
-  ~/Desktop/auth-service   main ⇡2 !1 ────────────────────────────────  3s
-❯ 
-```
-
-✅ to fix the errror
+✅ to fix this - `Edit Previous commits using Rebase`
 
 ```sh
-#   ~/Desktop/auth-service   main ⇡2 !1 ─────────────────────────────────────
-❯ git rebase -i HEAD~3 # 2 extra .git commits were made since github push blocked
+#   ~/Desktop/auth-service   main ⇡4 ───────────────────────────────────  7s
+❯ git rebase -i HEAD~4   
 
-edit 0343b6f supabase setup # change pick to edit 
-pick 9411eaa simulate secret keys
-pick c2f573d removed dockerhub credentials
+# it will open a file & will ask u to pick which commit to edit 
 
-# Stopped at 0343b6f...  supabase setup
-# You can amend the commit now, with
-#   git commit --amend 
-# Once you are satisfied with your changes, run
-#   git rebase --continue
-#   ~/Desktop/auth-service  @0343b6f4 rebase-i 1/3 
+pick 308ccb9 supabase setup - commit amended
+pick 6f9b71e simulate supabase tour
+pick 576cc96 removed dockerhub credentials
+pick adabb1e rebasing head back to faulting commit
+edit d7a6bfb editing commits - git rebase usage steps # i pick this commit to edit edit & save & close the file
 
-#   ~/Desktop/auth-service  @0343b6f4 rebase-i 1/3 ─────────────────────  58s
+❯ git commit --amend 
+
 ❯ git rebase --continue
 
+❯ git add readme.md
 
-#   ~/Desktop/auth-service   main ⇡3 ────────────────────────────────────────
-❯ git push origin main        
+# succesful message will look like this
 
+❯ git push origin main
 ```
 
 ---
 
 
-#
-
+#  
 
 *Playful stuff*
 
