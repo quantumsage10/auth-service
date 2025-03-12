@@ -826,8 +826,39 @@ edit d7a6bfb editing commits - git rebase usage steps # i pick this commit to ed
 ❯ git push origin main
 ```
 
+
+🏕️ all of my rebasing steps in macpro
+
+```sh
+# <!--   ~/Desktop/auth-service   main ⇡1 *1 ───────────────────────────────────── -->
+❯ git rebase -i HEAD~5  
+# <!-- Stopped at d7a6bfb...  editing commits - git rebase usage steps
+# You can amend the commit now, with
+
+#   git commit --amend 
+
+# Once you are satisfied with your changes, run
+
+#   git rebase --continue -->
+
+# <!--   ~/Desktop/auth-service  @d7a6bfbb *1 rebase-i 5/5 ──────────────────  17s -->
+❯ git rebase --continue
+# <!-- You must edit all merge conflicts and then
+# mark them as resolved using git add -->
+
+# <!--   ~/Desktop/auth-service  @d7a6bfbb *1 rebase-i 5/5 !1 ───────────────────── -->
+❯ git add readme.md
+
+# <!--   ~/Desktop/auth-service  @d7a6bfbb *1 rebase-i 5/5 +1 ───────────────────── -->
+❯ git rebase --continue
+# <!-- [detached HEAD b6ff7cf] editing commits - git rebase usage steps
+#  Date: Wed Mar 12 07:25:39 2025 +0530
+#  1 file changed, 22 insertions(+), 64 deletions(-)
+# Successfully rebased and updated refs/heads/main. -->
 ---
 
+❯ git push origin main
+```
 
 #  
 
