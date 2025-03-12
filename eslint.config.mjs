@@ -23,7 +23,7 @@ export default tseslint.config(
             "dist",
             ".github",
             ".env.*",
-            "*.js"
+            "**/*.js",
         ],
     },
     {
