@@ -650,7 +650,6 @@ D3zD5RzL1bLeoacQYX9sTgQJSNIpzh9XEHnsVgg4NS9EA99/CT5fWQ==
 - aws makes sure supabase server up & running
   
 ```py
-
 # supabase login
 SUPABASE_EMAIL=
 SUPABASE_PASSWORD=
@@ -793,55 +792,87 @@ const expressRouterFunc = (req: string, res: string, next: string, error: string
 - typecast explicitely to return something like promise based data
 
 
-## Git Errors while Pushing
+## GITHUB PUSH BLOCKED 
 
-### Github Push Blocking - can't push to github
-
-- first commit contains secret keys - restricted by github
-- second commit clears secret keys - can't push cuz first commit can't push
+- can't push to guthub cuz some secrets exposed to github
 
 ```sh
-GitHub is blocking your push because it detected a Docker Personal Access Token in your commit.
+GitHub is still blocking your push because the Docker Personal Access Token is present in a previous commit
 
-User
-You said:
-> git push origin main:main
-remote: error: GH013: Repository rule violations found for refs/heads/main.        
+
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.09 KiB | 1.09 MiB/s, done.
+Total 6 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
+remote: error: GH013: Repository rule violations found for refs/heads/main.
 remote: 
-remote: - GITHUB PUSH PROTECTION        
-remote:   —————————————————————————————————————————        
-remote:     Resolve the following violations before pushing again        
+remote: - GITHUB PUSH PROTECTION
+remote:   —————————————————————————————————————————
+remote:     Resolve the following violations before pushing again
 remote: 
-remote:     - Push cannot contain secrets        
+remote:     - Push cannot contain secrets
 remote: 
-remote:             
-remote:      (?) Learn how to resolve a blocked push        
-remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
-remote:             
-remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.        
-remote:      Visit the repository settings page, https://github.com/quantumsage10/auth-service/settings/security_analysis        
-remote:             
-remote:             
-remote:       —— Docker Personal Access Token ——————————————————————        
-remote:        locations:        
-remote:          - commit: 0343b6f4f76df6ef2f7afc88a01e8ce6826bed3a        
-remote:            path: readme.md:656        
-remote:             
-remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
-remote:        https://github.com/quantumsage10/auth-service/security/secret-scanning/unblock-secret/2uB3H3kX2VPO5WjW8qJLkW1CJJj        
-remote:             
+remote:     
+remote:      (?) Learn how to resolve a blocked push
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
+remote:     
+remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.
+remote:      Visit the repository settings page, https://github.com/quantumsage10/auth-service/settings/security_analysis
+remote:     
+remote:     
+remote:       —— Docker Personal Access Token ——————————————————————
+remote:        locations:
+remote:          - commit: 0343b6f4f76df6ef2f7afc88a01e8ce6826bed3a
+remote:            path: readme.md:656
+remote:     
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
+remote:        https://github.com/quantumsage10/auth-service/security/secret-scanning/unblock-secret/2uB3H3kX2VPO5WjW8qJLkW1CJJj
+remote:     
 remote: 
 remote: 
 To github.com:quantumsage10/auth-service.git
  ! [remote rejected] main -> main (push declined due to repository rule violations)
 error: failed to push some refs to 'github.com:quantumsage10/auth-service.git'
+
+  ~/Desktop/auth-service   main ⇡2 !1 ────────────────────────────────  3s
+❯ 
 ```
 
-✅ to fix this
+✅ to fix the errror
 
+```sh
+#   ~/Desktop/auth-service   main ⇡2 !1 ─────────────────────────────────────
+❯ git rebase -i HEAD~3 # 2 extra .git commits were made since github push blocked
+
+edit 0343b6f supabase setup # change pick to edit 
+pick 9411eaa simulate secret keys
+pick c2f573d removed dockerhub credentials
+
+# Stopped at 0343b6f...  supabase setup
+# You can amend the commit now, with
+#   git commit --amend 
+# Once you are satisfied with your changes, run
+#   git rebase --continue
+#   ~/Desktop/auth-service  @0343b6f4 rebase-i 1/3 
+
+#   ~/Desktop/auth-service  @0343b6f4 rebase-i 1/3 ─────────────────────  58s
+❯ git rebase --continue
+
+
+#   ~/Desktop/auth-service   main ⇡3 ────────────────────────────────────────
+❯ git push origin main        
+
+```
 
 ---
-# 
+
+
+#
+
+
 *Playful stuff*
 
 <details>
